@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2160.419, g: 2264.6074, b: 3288.0781, a: 1}
+  m_IndirectSpecularColor: {r: 2159.1555, g: 2263.639, b: 3287.313, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -104,7 +104,7 @@ NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
-    serializedVersion: 2
+    serializedVersion: 3
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
@@ -117,7 +117,7 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    buildHeightMesh: 0
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
@@ -226,7 +226,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2134132651848514883, guid: 6f017bbad5fbde84caee16daed94893e,
@@ -300,14 +300,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f017bbad5fbde84caee16daed94893e, type: 3}
 --- !u!1001 &3177697404808619363
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3177697405640323762, guid: 8fa73bd64fed9064cb0cbe40379e4769,
@@ -371,16 +373,23 @@ PrefabInstance:
       value: HdrpAndLighting
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fa73bd64fed9064cb0cbe40379e4769, type: 3}
 --- !u!1001 &8883122456379542398
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8883122456710024298, guid: d2c8c9862fa24c44d8eecc7126e5d9b8,
+        type: 3}
+      propertyPath: m_Version
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 8883122456756062016, guid: d2c8c9862fa24c44d8eecc7126e5d9b8,
         type: 3}
       propertyPath: m_RootOrder
@@ -442,9 +451,11 @@ PrefabInstance:
       value: Main
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8883122456756062016, guid: d2c8c9862fa24c44d8eecc7126e5d9b8,
         type: 3}
       insertIndex: 0
       addedObject: {fileID: 764548593}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2c8c9862fa24c44d8eecc7126e5d9b8, type: 3}
