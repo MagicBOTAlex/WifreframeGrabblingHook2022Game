@@ -14,7 +14,7 @@ public class DebugPlatformGen : MonoBehaviour
         {
             for (int z = -Size; z < Size; z++)
             {
-                var spawnedObject = Instantiate(DebugPrefab, new Vector3(x, transform.position.y, z), Quaternion.identity);
+                var spawnedObject = Instantiate(DebugPrefab, new Vector3(x, transform.position.y, z), Quaternion.identity, transform);
                 SpawnedTiles.Add(spawnedObject);
             }
         }
