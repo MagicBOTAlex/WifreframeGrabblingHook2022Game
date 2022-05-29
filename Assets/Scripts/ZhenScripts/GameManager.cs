@@ -6,11 +6,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-
-    private GameObject Player;
+    public GameObject Player;
+    public GameObject Camera;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (Instance is null) Instance = this; else Destroy(this);
     }
