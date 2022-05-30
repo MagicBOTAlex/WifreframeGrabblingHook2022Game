@@ -28,12 +28,12 @@ public class CharacterController : MonoBehaviour
     private void Awake()
     {
         m_PlayerBody = GetComponent<Rigidbody>();
-        m_Camera = Camera.main;
     }
     void Start()
     {
-       Cursor.lockState = CursorLockMode.Locked;
-       Cursor.visible = false; 
+        m_Camera = GameManager.Instance.Camera.GetComponent<Camera>();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false; 
     }
 
     private void Update() 
