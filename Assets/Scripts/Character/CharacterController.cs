@@ -12,7 +12,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private float m_MovementSpeed;
     [SerializeField] private float m_JumpForce;
 
-    [Header("Camerea settings")]
+    [Tooltip("Camera settings")]
     [SerializeField] private float m_HorizontalSensitivity;
     [SerializeField] private float m_VerticalSensitivity;
     [SerializeField] private float m_MaxViewAngle;
