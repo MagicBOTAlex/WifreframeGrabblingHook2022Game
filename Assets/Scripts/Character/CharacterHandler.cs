@@ -8,11 +8,12 @@ public class CharacterController : MonoBehaviour
     private Camera m_Camera;
 
     [Header("Character controller settings")]
-
     [SerializeField] private float m_MovementSpeed;
+    [SerializeField] private float m_SprintSpeed;
+    [SerializeField] private string m_SprintButtonName;
     [SerializeField] private float m_JumpForce;
 
-    [Header("Camerea settings")]
+    [Header("Camera settings")]
     [SerializeField] private float m_HorizontalSensitivity;
     [SerializeField] private float m_VerticalSensitivity;
     [SerializeField] private float m_MaxViewAngle;
@@ -21,9 +22,12 @@ public class CharacterController : MonoBehaviour
     private Vector3 m_MovementInput;
     private Vector2 m_MouseInput;
     private bool m_IsGrounded;
+    private bool m_IsRunning;
+    private bool m_IsWalking;
+    private bool m_IsAirborne;
+    private bool m_IsIdle;
     private bool m_LockCamera;
     private float m_CameraPitch;
-
 
     private void Awake()
     {
@@ -40,10 +44,14 @@ public class CharacterController : MonoBehaviour
     {
         // Update input vectors
         m_MovementInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
+        m_MovementInput.Normalize();
         m_MouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
 
         m_IsGrounded = CheckGroundState();
 
+        // Debug.Log(m_IsRunning);
+
+        HandleState();
         HandleMovement();
         HandleRotation();
     }
@@ -53,8 +61,14 @@ public class CharacterController : MonoBehaviour
     /// </summary>
     private void HandleMovement() 
     {
+        // Vary speed if running
+        float moveSpeed = m_MovementSpeed;
+        if (m_IsRunning)
+            moveSpeed = m_SprintSpeed;
+
+        Debug.Log(moveSpeed);
         // Apply movement relative to players local axis
-        Vector3 moveVector = m_MovementInput * m_MovementSpeed * Time.deltaTime;
+        Vector3 moveVector = m_MovementInput * moveSpeed * Time.deltaTime;
         transform.Translate(moveVector);
 
         HandleJump();
@@ -104,5 +118,37 @@ public class CharacterController : MonoBehaviour
         if (m_PlayerBody.velocity.y > 0.01f || m_PlayerBody.velocity.y < -0.01f)
             return false;
         return true;
+    }
+
+    /// <summary>
+    /// Handles the players different movement state i.e runnning, walking etc.
+    /// </summary>
+    private void HandleState()
+    {
+        // Running
+        if (m_MouseInput.x != 0 || m_MouseInput.y != 0)
+        {
+            m_IsIdle = false;
+            m_IsWalking = true;
+        }
+        else
+        {
+            m_IsAirborne = false;
+            m_IsIdle = true;
+        }
+        if (!m_IsGrounded)
+        {
+            m_IsAirborne = true;
+            m_IsIdle = false;
+        }
+        if (Input.GetButton(m_SprintButtonName))
+        {
+            m_IsRunning = true;
+            m_IsWalking = false;
+        }
+        else
+        {
+            m_IsRunning = false;
+        }
     }
 }
