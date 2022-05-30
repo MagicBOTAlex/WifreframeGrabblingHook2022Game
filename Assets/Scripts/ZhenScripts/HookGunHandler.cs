@@ -5,6 +5,7 @@ using UnityEngine;
 public class HookGunHandler : MonoBehaviour
 {
     public float LookingSpeed = 2f;
+    public float CastRadius = 1f;
 
     private GameObject MainCamera;
     private Vector3 TargetPos;
@@ -21,7 +22,7 @@ public class HookGunHandler : MonoBehaviour
     {
         // casts a ray from the main camera and checks if it hits.
         // if the ray hits then it will check if the object that was hit has a "GrabblebleObject" tag
-        if (Physics.Raycast(MainCamera.transform.position, MainCamera.transform.forward, out RaycastHit HitInfo, 100.0f)
+        if (Physics.SphereCast(MainCamera.transform.position, CastRadius, MainCamera.transform.forward, out RaycastHit HitInfo, 100.0f)
             && HitInfo.collider.CompareTag("GrabblebleObject"))
         {
             //Debug.DrawLine(MainCamera.transform.position, HitInfo.point);   // draws a debug line that shows the ray when hitting an object
