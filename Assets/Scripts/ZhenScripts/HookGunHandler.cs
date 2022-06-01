@@ -10,22 +10,31 @@ public class HookGunHandler : MonoBehaviour
     public GameObject Hook;
     public GameObject HookStartObject;
     public float HookSpeed = 10f;
+    public float HookBackSpeed = 10f;
+    public float PullForce = 100f;
 
     private GameObject MainCamera;
+    private GameObject Player;
+    private Rigidbody PlayerRB;
     private Vector3 TargetPos;
     private Quaternion StartingRotation;
+    private Transform FrontHookOffset, BackHookOffset;
+    Vector3 hookingPosition = new Vector3();
 
     private void Start()
     {
         // stores the non changing values
         MainCamera = GameManager.Instance.Camera;
+        Player = GameManager.Instance.Player;
+        //PlayerRB = Player.GetComponent<Rigidbody>();
         StartingRotation = transform.rotation;
+        FrontHookOffset = Hook.transform.GetChild(0);
+        BackHookOffset = Hook.transform.GetChild(1);
 
         // unparenting the hook so it's not affected by the player's movements
         Hook.transform.parent = null;
     }
 
-    Vector3 hookingPosition = new Vector3();
     private void Update()
     {
         #region Ratating the cannon
@@ -39,7 +48,7 @@ public class HookGunHandler : MonoBehaviour
             {
                 //Debug.DrawLine(MainCamera.transform.position, HitInfo.point);   // draws a debug line that shows the ray when hitting an object
                 TargetPos = HitInfo.transform.position;                         // stores the position of the object that was hit
-                
+
             }
             else
             {
@@ -55,7 +64,7 @@ public class HookGunHandler : MonoBehaviour
 
         // lerps the rotation of the HookGun to the correct ratation
         transform.rotation = Quaternion.Lerp(
-            currentRotation, 
+            currentRotation,
             (TargetPos == Vector3.zero) ? normalRotation : targetRotation, // check if there is a target. If target is zero then uses StartingRotation else uses targetRotation
             Time.deltaTime * LookingSpeed);
         #endregion
@@ -67,153 +76,187 @@ public class HookGunHandler : MonoBehaviour
             {
                 // this shoots a ray through everything and it retreives the closest object from the ray origin
                 //Debug.DrawRay(transform.position, transform.forward * -1);
-                RaycastHit[] hits =  Physics.RaycastAll(transform.position, transform.forward * -1, 10);
+                RaycastHit[] hits = Physics.RaycastAll(transform.position, transform.forward * -1, 10);
                 if (hits.Where(x => x.collider.CompareTag("GrabblebleObject")).Count() > 0)
                 {
-                  var 
-                        
-                        
-          something 
-                        
-                          
+                    #region spread out peice of code
+                    var
+
+
+          something
 
 
 
-                        
-                                         = 
+
+
+
+                                         =
                     hits
-                       
+
                                                         .
-                    
+
          Where
                             (
-                         
-                            
-                 x 
-                            
-                           
-                                => 
+
+
+                 x
+
+
+                                =>
                 x.
-                            
+
                                       collider
                        .
-                            
+
                          CompareTag
-                            
+
                     (
-                                
+
              "GrabblebleObject"
-                                
-                                
-                                
-                                
-                                
+
+
+
+
+
    )
                             )
                         .
-                        
+
                                            Aggregate
-                        
-                        
-                        
+
+
+
                 (
                                                (
                                 x
-                                
-                                
+
+
                               ,
-                                
+
                                y
-                                
-                                
+
+
                               )
                                     =>
-                            
+
                     (
-                            
-                            
+
+
                                Vector3
-                            
-                            
+
+
                         .
-                            
-                            
+
+
                                            Distance(
                             y
                                 .
                           point
-                                
+
                   ,
                            Hook
-                                
+
                                      .
-                                
-                                
+
+
                      transform
-                                
+
                                    .
                           position)
-                            
-                                        <= 
-                            
-                            
-                            
+
+                                        <=
+
+
+
          Vector3
                             .
-                            
+
                                      Distance
-                            
+
                             (
-                                
-                                
+
+
                       x
-                                
+
                                         .
-                                
-                                
+
+
                            point
-                                
+
                                       ,
-                                
-                                
+
+
                               Hook
-                                
+
               .
-                                
-                                
-                                
+
+
+
                                       transform
                        .
-                                
-                                
-                                
+
+
+
                         position
-                                
-                                
+
+
                                         )
-                            
-                            
+
+
                           )
-                            
+
                             ?
-                            
+
                             y
                             :
                             x
                             )
                         ;
-                    
-                    hookingPosition = something.point; // stores the surface point of the object that the player is trying to grab
+                    #endregion
+
+                    hookingPosition = something.point + (Hook.transform.position - FrontHookOffset.position); // stores the surface point of the object that the player is trying to grab
                 }
             }
 
-            Hook.transform.position = Vector3.Lerp(Hook.transform.position, hookingPosition, HookSpeed * Time.deltaTime);
+            if (Hook.transform.parent == transform)
+                Hook.transform.parent = null;
+
+            if (Vector3.Distance(Hook.transform.position, hookingPosition) > 0.05f)
+                Hook.transform.position = Vector3.Lerp(Hook.transform.position, hookingPosition, HookSpeed * Time.deltaTime);
+            //else
+                //PlayerRB.AddForce((transform.position - FrontHookOffset.position).normalized * PullForce * Time.deltaTime);
         }
         else
         {
             hookingPosition = Vector3.zero;
-            Hook.transform.position = Vector3.Lerp(Hook.transform.position, HookStartObject.transform.position, HookSpeed * Time.deltaTime);
+
+            Vector3 backTarget = HookStartObject.transform.position + (Hook.transform.position - BackHookOffset.position);
+            float dist = Vector3.Distance(transform.position, BackHookOffset.position);
+            if (dist > 0.1f)
+            {
+
+                if (Hook.transform.parent == transform)
+                    Hook.transform.parent = null;
+
+                Hook.transform.rotation = transform.rotation;
+
+                Hook.transform.position = Vector3.LerpUnclamped(Hook.transform.position, backTarget, GetBackSpeed());
+            }
+            else
+            {
+                if (Hook.transform.parent != transform)
+                    Hook.transform.parent = transform;
+
+                loopAmount = 0f;
+            }
         }
         #endregion
+    }
+
+    float loopAmount = 0f;
+    float GetBackSpeed()
+    {
+        loopAmount += (HookBackSpeed / 2) * Time.deltaTime;
+        return loopAmount;
     }
 }
