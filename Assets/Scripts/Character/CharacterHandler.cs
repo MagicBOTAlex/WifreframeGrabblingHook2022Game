@@ -26,7 +26,7 @@ public class CharacterHandler : MonoBehaviour
     private Vector3 m_CurrentMovementDir = Vector3.zero;
     private Vector2 m_MouseVelocityDelta = Vector3.zero;
     private Vector2 m_CurrentMouseDir = Vector3.zero;
-    private float m_CameraPitch;
+    private float m_CameraPitch = 0f;
     private bool m_IsGrounded = false;
     private bool m_LockCamera = false;
     private bool m_GravityEnabled = true;
@@ -43,7 +43,7 @@ public class CharacterHandler : MonoBehaviour
     {
         m_IsGrounded = CheckGroundState();
 
-        HandleState();
+        // HandleState();
         HandleMovement();
         HandleRotation();
     }
@@ -135,5 +135,10 @@ public class CharacterHandler : MonoBehaviour
     private void HandleState()
     {
 
+    }
+
+    private void OnCollisionEnter(Collision collider) {
+        Debug.Log("hit");
+        Debug.Log(collider.gameObject.name);
     }
 }
