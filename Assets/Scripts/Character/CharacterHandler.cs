@@ -26,14 +26,12 @@ public class CharacterHandler : MonoBehaviour
     private Vector3 m_CurrentMovementDir = Vector3.zero;
     private Vector2 m_MouseVelocityDelta = Vector3.zero;
     private Vector2 m_CurrentMouseDir = Vector3.zero;
-    private bool m_IsGrounded;
-    private bool m_IsWalking;
-    private bool m_IsAirborne;
-    private bool m_IsIdle;
-    private bool m_LockCamera;
     private float m_CameraPitch;
+    private bool m_IsGrounded = false;
+    private bool m_LockCamera = false;
+    private bool m_GravityEnabled = true;
 
-    void Start()
+    private void Start()
     {
         m_CharacterController = GetComponent<CharacterController>();
         m_Camera = GameManager.Instance.Camera.GetComponent<Camera>();
@@ -48,6 +46,16 @@ public class CharacterHandler : MonoBehaviour
         HandleState();
         HandleMovement();
         HandleRotation();
+    }
+
+    public void AddForce(Vector3 velocity) {
+        velocity = transform.TransformDirection(velocity);
+        m_CharacterController.Move(velocity);
+    }
+
+    public bool SetGravity(bool value) {
+        m_GravityEnabled = value;
+        return value;
     }
 
     /// <summary>
@@ -72,7 +80,8 @@ public class CharacterHandler : MonoBehaviour
                 m_MovementVelocity.y += m_JumpForce;
             }
         }
-        m_MovementVelocity.y -= m_Gravity * Time.deltaTime;
+        if (m_GravityEnabled)
+            m_MovementVelocity.y -= m_Gravity * Time.deltaTime;
 
         // Add movement scalar to x- and z-axises, and gravity scalar to y-axis and apply movement on the characters local axis
         Vector3 smoothedMoveVelocity = (transform.forward * m_CurrentMovementDir.z + transform.right * m_CurrentMovementDir.x) * m_MovementSpeed + Vector3.up * m_MovementVelocity.y;
@@ -125,21 +134,6 @@ public class CharacterHandler : MonoBehaviour
     /// </summary>
     private void HandleState()
     {
-        // Running
-        if (m_CurrentMovementDir.x != 0 || m_CurrentMovementDir.y != 0)
-        {
-            m_IsIdle = false;
-            m_IsWalking = true;
-        }
-        else
-        {
-            m_IsAirborne = false;
-            m_IsIdle = true;
-        }
-        if (!m_IsGrounded)
-        {
-            m_IsAirborne = true;
-            m_IsIdle = false;
-        }
+
     }
 }
