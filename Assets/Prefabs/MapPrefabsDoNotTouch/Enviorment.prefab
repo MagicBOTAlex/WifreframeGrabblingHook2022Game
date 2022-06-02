@@ -30,7 +30,7 @@ Transform:
   m_Children:
   - {fileID: 6662351134315561477}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8750515929160691593
 GameObject:
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb3a69d4cf4e934289188d1a314be07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugPrefab: {fileID: 9181864292182022343, guid: 6a3b5b6638d73b54a9728cc7f29358b8,
+  DebugPrefab: {fileID: 3302433440427770530, guid: 17f9580bf7936b34cad9a732e91f000b,
     type: 3}
   SpawnedTiles: []
   Size: 20
