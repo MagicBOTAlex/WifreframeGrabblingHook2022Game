@@ -48,7 +48,16 @@ public class CharacterHandler : MonoBehaviour
         HandleRotation();
     }
 
-    public void AddForce(Vector3 velocity) {
+    public void AddForce(Vector3 velocity)
+    {
+        m_CharacterController.Move(velocity);
+    }
+
+    /// <summary>
+    /// Alabama
+    /// </summary>
+    public void AddRelativeForce(Vector3 velocity)
+    {
         velocity = transform.TransformDirection(velocity);
         m_CharacterController.Move(velocity);
     }
