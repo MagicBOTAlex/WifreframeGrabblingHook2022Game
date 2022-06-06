@@ -35,7 +35,7 @@ public class HookGunHandler : MonoBehaviour
         // unparenting the hook so it's not affected by the player's movements
         Hook.transform.parent = null;
     }
-
+    Vector3 maxPosition = new Vector3();
     private void Update()
     {
         #region Ratating the cannon
@@ -241,7 +241,7 @@ public class HookGunHandler : MonoBehaviour
 
                 Hook.transform.rotation = transform.rotation;
 
-                Hook.transform.position = Vector3.LerpUnclamped(Hook.transform.position, backTarget, GetBackSpeed());
+                Hook.transform.position = Vector3.Lerp(Hook.transform.position, backTarget, GetBackSpeed());
             }
             else
             {
