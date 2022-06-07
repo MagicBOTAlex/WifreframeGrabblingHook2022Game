@@ -75,11 +75,13 @@ public class HookGunHandler : MonoBehaviour
         #region Shooting part
         if (Input.GetButton("FireCannon") && TargetPos != Vector3.zero)
         {
+            PlayerCH.SetGravity(false);
+
             if (hookingPosition == Vector3.zero)
             {
                 // this shoots a ray through everything and it retreives the closest object from the ray origin
                 //Debug.DrawRay(transform.position, transform.forward * -1);
-                RaycastHit[] hits = Physics.RaycastAll(transform.position, transform.forward * -1, 10);
+                RaycastHit[] hits = Physics.RaycastAll(transform.position, transform.forward * -1, 1000);
                 if (hits.Where(x => x.collider.CompareTag("GrabblebleObject")).Count() > 0)
                 {
                     #region spread out peice of code
@@ -229,7 +231,6 @@ public class HookGunHandler : MonoBehaviour
             else
             {
                 PlayerCH.AddForce((BackHookOffset.position - Player.transform.position).normalized * PullForce * Time.deltaTime);
-                PlayerCH.SetGravity(false);
             }
         }
         else
