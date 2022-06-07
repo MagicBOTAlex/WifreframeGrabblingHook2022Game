@@ -11,12 +11,13 @@ public class HookGunHandler : MonoBehaviour
     public GameObject HookStartObject;
     public float HookSpeed = 10f;
     public float HookBackSpeed = 10f;
-    [Range(0, 50)]
+    [Range(0, 500)]
     public float PullForce = 1f;
 
     private GameObject MainCamera;
     private GameObject Player;
     private CharacterHandler PlayerCH;
+    private Rigidbody PlayerRB;
     private Vector3 TargetPos;
     private Quaternion StartingRotation;
     private Transform FrontHookOffset, BackHookOffset;
@@ -28,6 +29,7 @@ public class HookGunHandler : MonoBehaviour
         MainCamera = GameManager.Instance.Camera;
         Player = GameManager.Instance.Player;
         PlayerCH = Player.GetComponent<CharacterHandler>();
+        PlayerRB = Player.GetComponent<Rigidbody>();
         StartingRotation = transform.rotation;
         FrontHookOffset = Hook.transform.GetChild(0);
         BackHookOffset = Hook.transform.GetChild(1);
@@ -225,10 +227,15 @@ public class HookGunHandler : MonoBehaviour
             if (Vector3.Distance(Hook.transform.position, hookingPosition) > 0.05f)
                 Hook.transform.position = Vector3.Lerp(Hook.transform.position, hookingPosition, HookSpeed * Time.deltaTime);
             else
+            {
                 PlayerCH.AddForce((BackHookOffset.position - Player.transform.position).normalized * PullForce * Time.deltaTime);
+                PlayerCH.SetGravity(false);
+            }
         }
         else
         {
+            PlayerCH.SetGravity(true);
+
             hookingPosition = Vector3.zero;
 
             Vector3 backTarget = HookStartObject.transform.position + (Hook.transform.position - BackHookOffset.position);

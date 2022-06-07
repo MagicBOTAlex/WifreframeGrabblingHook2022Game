@@ -736,7 +736,7 @@ MonoBehaviour:
   HookStartObject: {fileID: 9067307392280159000}
   HookSpeed: 10
   HookBackSpeed: 10
-  PullForce: 1
+  PullForce: 5
 --- !u!1 &5003583441249756812
 GameObject:
   m_ObjectHideFlags: 0

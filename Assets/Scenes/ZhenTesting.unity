@@ -511,7 +511,7 @@ PrefabInstance:
     - target: {fileID: 6997244547720032249, guid: b6e8f488654f5f9508264c43879e38e8,
         type: 3}
       propertyPath: PullForce
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
