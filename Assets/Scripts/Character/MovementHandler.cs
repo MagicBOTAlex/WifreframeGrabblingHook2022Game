@@ -28,7 +28,6 @@ public class MovementHandler : MonoBehaviour
         // Sum up all the modifiers to give the final movement vector
         for (int i = 0; i < m_MovementModifiers.Count; ++i)
         {
-            Debug.Log($"Adding velocity: {m_MovementModifiers[i].MovementValue}");
             movementVelocity += m_MovementModifiers[i].MovementValue;
         }
 

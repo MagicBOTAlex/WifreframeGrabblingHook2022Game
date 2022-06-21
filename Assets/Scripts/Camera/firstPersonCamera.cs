@@ -13,7 +13,7 @@ public class firstPersonCamera : MonoBehaviour
     [Header("Camera Settings")]
     [SerializeField] private float m_HorizontalSensitivity = 400f;
     [SerializeField] private float m_VerticalSensitivity = 400f;
-    [SerializeField] private float m_MouseSmooth = 0.1f;
+    [SerializeField] private float m_MouseSmooth = 0.015f;
     [SerializeField] private float m_MaxViewAngle = 90f;
     [SerializeField] private float m_MinViewAngle = -90f;
 
