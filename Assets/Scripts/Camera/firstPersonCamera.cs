@@ -5,10 +5,12 @@ using UnityEngine;
 public class firstPersonCamera : MonoBehaviour
 {
     /* Handles camera panning */
+    
+    [Header("References")]
+    [SerializeField] private Transform m_PlayerTransform;
     private Camera m_Camera = null;
 
     [Header("Camera Settings")]
-    [SerializeField] private bool m_NormalizeMouseInput = false;
     [SerializeField] private float m_HorizontalSensitivity = 400f;
     [SerializeField] private float m_VerticalSensitivity = 400f;
     [SerializeField] private float m_MouseSmooth = 0.1f;
@@ -25,6 +27,7 @@ public class firstPersonCamera : MonoBehaviour
     private void Start()
     {
         m_Camera = Camera.main;
+        Cursor.lockState = CursorLockMode.Locked;
     }
     private void Update()
     {
@@ -35,8 +38,6 @@ public class firstPersonCamera : MonoBehaviour
     {
         // Holds the target mouse input direction in which we want to smooth towards
         Vector2 targetDir = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
-        if (m_NormalizeMouseInput)
-            targetDir.Normalize();
             
         // Accelerate to the target direction, to smooth the camera movement
         m_CurrentCameraDir = Vector2.SmoothDamp(m_CurrentCameraDir, targetDir, ref m_CurrentCameraDirDelta, m_MouseSmooth);
@@ -47,5 +48,11 @@ public class firstPersonCamera : MonoBehaviour
 
         // Apply camera's local x rotation (vertical rotation), to camera
         m_Camera.transform.localEulerAngles = Vector3.right * m_CameraPitch;
+
+        // Calculate the yaw rotation of the player model based on the smoothed mouse input direction
+        float yawRotation = m_PlayerTransform.localEulerAngles.z + m_CurrentCameraDir.x * m_HorizontalSensitivity * Time.deltaTime;
+
+        // Apply player model's local z rotation (horizontal rotation), to player model
+        m_PlayerTransform.Rotate(Vector3.up * yawRotation);
     }
 }
