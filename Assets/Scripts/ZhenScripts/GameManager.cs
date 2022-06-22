@@ -7,15 +7,13 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public GameObject Player;
+    public static CharacterState PlayerState = CharacterState.idle;
     public GameObject Camera;
-
     public Texture2D crosshairImage;
 
-    public int MyProperty { get; set; }
-
-    // Start is called before the first frame update
     void Awake()
     {
+        // Ensure only one instance of gm is active
         if (Instance is null) Instance = this; else Destroy(this);
     }
 

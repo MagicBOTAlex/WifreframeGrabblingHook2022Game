@@ -22,9 +22,14 @@ public class ForceReciever : MonoBehaviour, IMovementModifier
 
     private void Update()
     {
-        // Reset the force when its below the threshold
-        if (MovementValue.magnitude < m_ForceMagnitudeResetThreshold)
+        if (MovementValue == Vector3.zero)
+            return;
+
+        // Reset the force when its below the reset threshold
+        if (MovementValue.magnitude < m_ForceMagnitudeResetThreshold) {
+            Debug.Log("Reset force velocity");
             MovementValue = Vector3.zero;
+        }
         
         // Slowly lerp force to zero to simulate airresistance, friction etc.
         MovementValue = Vector3.Lerp(MovementValue, Vector3.zero, m_Drag * Time.deltaTime);

@@ -16,7 +16,8 @@ public class HookGunHandler : MonoBehaviour
 
     private GameObject MainCamera;
     private GameObject Player;
-    // private CharacterHandler PlayerCH;
+    private ForceReciever PlayerForceReciever;
+    private Gravity PlayerGravityHandler;
     private Rigidbody PlayerRB;
     private Vector3 TargetPos;
     private Quaternion StartingRotation;
@@ -28,7 +29,8 @@ public class HookGunHandler : MonoBehaviour
         // stores the non changing values
         MainCamera = GameManager.Instance.Camera;
         Player = GameManager.Instance.Player;
-        // PlayerCH = Player.GetComponent<CharacterHandler>();
+        PlayerForceReciever = Player.GetComponent<ForceReciever>();
+        PlayerGravityHandler = Player.GetComponent<Gravity>();
         PlayerRB = Player.GetComponent<Rigidbody>();
         StartingRotation = transform.rotation;
         FrontHookOffset = Hook.transform.GetChild(0);
@@ -75,7 +77,8 @@ public class HookGunHandler : MonoBehaviour
         #region Shooting part
         if (Input.GetButton("FireCannon") && TargetPos != Vector3.zero)
         {
-            // PlayerCH.SetGravity(false);
+            // Set the player state to 'hooking' so other scripts knows
+            GameManager.PlayerState = CharacterState.hooking;
 
             if (hookingPosition == Vector3.zero)
             {
@@ -223,6 +226,7 @@ public class HookGunHandler : MonoBehaviour
                 }
             }
 
+            PlayerGravityHandler.GravityEnabled = false;
             if (Hook.transform.parent == transform)
                 Hook.transform.parent = null;
 
@@ -230,12 +234,14 @@ public class HookGunHandler : MonoBehaviour
                 Hook.transform.position = Vector3.Lerp(Hook.transform.position, hookingPosition, HookSpeed * Time.deltaTime);
             else
             {
+                Debug.Log("Adding forrrce");
+                PlayerForceReciever.AddForce((BackHookOffset.position - Player.transform.position).normalized * PullForce * Time.deltaTime);
                 // PlayerCH.AddForce((BackHookOffset.position - Player.transform.position).normalized * PullForce * Time.deltaTime);
             }
         }
         else
         {
-            // PlayerCH.SetGravity(true);
+            PlayerGravityHandler.GravityEnabled = true;
 
             hookingPosition = Vector3.zero;
 

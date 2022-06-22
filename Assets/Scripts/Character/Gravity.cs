@@ -12,6 +12,8 @@ public class Gravity : MonoBehaviour, IMovementModifier
     [SerializeField] private float m_GroundedPullStrength = 20f;
 
     public Vector3 MovementValue { get; private set; }
+    private bool m_GravityEnabled = true;
+    public bool GravityEnabled { get { return m_GravityEnabled; } set { m_GravityEnabled = value; }}
 
     private bool m_WasGroundedLastFrame;
 
@@ -31,21 +33,17 @@ public class Gravity : MonoBehaviour, IMovementModifier
 
     private void HandleGravity()
     {
-        // Reset gravity velocity when just hitting the ground after being airborne
-        if (!m_WasGroundedLastFrame && m_CharacterController.isGrounded)
-            MovementValue = new Vector3(MovementValue.x, 0f, MovementValue.z);
-
         // Apply force downwards when on the ground, this is important
         // so we go smoothly down ramps, because without this we would
         // bump into the ramp by the normal gravity strength which is visible 
-        if (m_CharacterController.isGrounded && !Input.GetButtonDown("Jump"))
+        if (m_CharacterController.isGrounded && !Input.GetButtonDown("Jump") && GameManager.PlayerState != CharacterState.hooking) {
             MovementValue = new Vector3(MovementValue.x, -m_GroundedPullStrength, MovementValue.z);
+        }
         else if (m_WasGroundedLastFrame)
             MovementValue = Vector3.zero;
-        else
+        else if (m_GravityEnabled)
             MovementValue = new Vector3(MovementValue.x, MovementValue.y - m_GravityStrength * Time.deltaTime, MovementValue.z);
 
         m_WasGroundedLastFrame = m_CharacterController.isGrounded;
-
     }
 }

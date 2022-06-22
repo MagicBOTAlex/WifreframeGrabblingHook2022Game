@@ -24,7 +24,6 @@ public class Jump : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump") && m_CharacterController.isGrounded)
         {
-            Debug.Log("Jumping...");
             m_ForceReciever.AddForce(Vector3.up * m_JumpForce);
         }
     }
