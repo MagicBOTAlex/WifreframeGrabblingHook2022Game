@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2156.5378, g: 2259.3142, b: 3279.2305, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -546,6 +546,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6997244547720032249, guid: b6e8f488654f5f9508264c43879e38e8,
+        type: 3}
+      propertyPath: PullForce
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 7407555873755443215, guid: b6e8f488654f5f9508264c43879e38e8,
+        type: 3}
+      propertyPath: m_MinMoveDistance
+      value: 0.001
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -835,7 +845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Mass: 1
-  m_Drag: 1
+  m_Drag: 0.5
   m_ForceMagnitudeResetThreshold: 0.2
 --- !u!114 &1798073020
 MonoBehaviour:
@@ -863,7 +873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5ebb792645aa9a63995b80b2d83f0b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_JumpForce: 5
+  m_JumpForce: 3
 --- !u!1 &1878117437
 GameObject:
   m_ObjectHideFlags: 0
