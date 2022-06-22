@@ -2,17 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ForceReciever : MonoBehaviour
+public class ForceReciever : MonoBehaviour, IMovementModifier
 {
-    // Start is called before the first frame update
-    void Start()
+    private MovementHandler m_MovementHandler = null;
+    public Vector3 MovementValue { get; private set; }
+
+    [Header("Force settings")]
+    [SerializeField] private float m_Mass = 1f;
+    [SerializeField] private float m_Drag = 1f;
+    [SerializeField] private float m_ForceMagnitudeResetThreshold = 0.2f;
+
+    private void OnEnable() { m_MovementHandler.RegisterModifier(this); }
+    private void OnDisable() { m_MovementHandler.RemoveModifier(this); }
+
+    private void Awake()
     {
-        
+        m_MovementHandler = GetComponent<MovementHandler>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        // Reset the force when its below the threshold
+        if (MovementValue.magnitude < m_ForceMagnitudeResetThreshold)
+            MovementValue = Vector3.zero;
         
+        // Slowly lerp force to zero to simulate airresistance, friction etc.
+        MovementValue = Vector3.Lerp(MovementValue, Vector3.zero, m_Drag * Time.deltaTime);
+    }
+    public void AddForce(Vector3 force)
+    {
+        MovementValue += force / m_Mass;
     }
 }
