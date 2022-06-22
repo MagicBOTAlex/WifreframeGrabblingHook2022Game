@@ -24,6 +24,8 @@ public class firstPersonCamera : MonoBehaviour
     private Vector2 m_CurrentCameraDirDelta = Vector2.zero;
     private float m_CameraPitch = 0f;
 
+    private bool m_CameraLock = false;
+
     private void Start()
     {
         m_Camera = Camera.main;
@@ -31,7 +33,17 @@ public class firstPersonCamera : MonoBehaviour
     }
     private void Update()
     {
-        RotateCamera();
+        // Lock cam when pressing esc, so its easier to debug
+        if (Input.GetKeyDown(KeyCode.Escape))
+            m_CameraLock = !m_CameraLock;
+        
+        // Unlock cam upon fire
+        if (m_CameraLock && Input.GetButtonDown("Fire1"))
+            m_CameraLock = !m_CameraLock;
+
+        // Only rotate cam if its not locked
+        if (!m_CameraLock)
+            RotateCamera();
     }
 
     private void RotateCamera()
