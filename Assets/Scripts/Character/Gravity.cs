@@ -33,16 +33,12 @@ public class Gravity : MonoBehaviour, IMovementModifier
     {
         // Reset gravity velocity when just hitting the ground after being airborne
         if (!m_WasGroundedLastFrame && m_CharacterController.isGrounded)
-        {
-            Debug.Log("Resetting");
             MovementValue = new Vector3(MovementValue.x, 0f, MovementValue.z);
-        }
-        
-        
+
         // Apply force downwards when on the ground, this is important
         // so we go smoothly down ramps, because without this we would
         // bump into the ramp by the normal gravity strength which is visible 
-        if (m_CharacterController.isGrounded)
+        if (m_CharacterController.isGrounded && !Input.GetButtonDown("Jump"))
             MovementValue = new Vector3(MovementValue.x, -m_GroundedPullStrength, MovementValue.z);
         else if (m_WasGroundedLastFrame)
             MovementValue = Vector3.zero;
