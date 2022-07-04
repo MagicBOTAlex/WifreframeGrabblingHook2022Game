@@ -78,7 +78,7 @@ public class HookGunHandler : MonoBehaviour
         if (Input.GetButton("FireCannon") && TargetPos != Vector3.zero)
         {
             // Set the player state to 'hooking' so other scripts knows
-            GameManager.PlayerState = CharacterState.hooking;
+            GameManager.PlayerState.hooking = true;
 
             if (hookingPosition == Vector3.zero)
             {
@@ -234,7 +234,6 @@ public class HookGunHandler : MonoBehaviour
                 Hook.transform.position = Vector3.Lerp(Hook.transform.position, hookingPosition, HookSpeed * Time.deltaTime);
             else
             {
-                Debug.Log("Adding forrrce");
                 PlayerForceReciever.AddForce((BackHookOffset.position - Player.transform.position).normalized * PullForce * Time.deltaTime);
                 // PlayerCH.AddForce((BackHookOffset.position - Player.transform.position).normalized * PullForce * Time.deltaTime);
             }
@@ -242,6 +241,7 @@ public class HookGunHandler : MonoBehaviour
         else
         {
             PlayerGravityHandler.GravityEnabled = true;
+            GameManager.PlayerState.hooking = false;
 
             hookingPosition = Vector3.zero;
 

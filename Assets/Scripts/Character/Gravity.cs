@@ -29,14 +29,16 @@ public class Gravity : MonoBehaviour, IMovementModifier
     private void Update()
     {
         HandleGravity();
+
+        GameManager.PlayerState.airborne = !m_CharacterController.isGrounded;
     }
 
     private void HandleGravity()
     {
         // Apply force downwards when on the ground, this is important
         // so we go smoothly down ramps, because without this we would
-        // bump into the ramp by the normal gravity strength which is visible 
-        if (m_CharacterController.isGrounded && !Input.GetButtonDown("Jump") && GameManager.PlayerState != CharacterState.hooking) {
+        // bump into the ramp by the normal gravity strength which is visible
+        if (m_CharacterController.isGrounded && !Input.GetButtonDown("Jump") && !GameManager.PlayerState.hooking) {
             MovementValue = new Vector3(MovementValue.x, -m_GroundedPullStrength, MovementValue.z);
         }
         else if (m_WasGroundedLastFrame)
@@ -45,5 +47,6 @@ public class Gravity : MonoBehaviour, IMovementModifier
             MovementValue = new Vector3(MovementValue.x, MovementValue.y - m_GravityStrength * Time.deltaTime, MovementValue.z);
 
         m_WasGroundedLastFrame = m_CharacterController.isGrounded;
+
     }
 }

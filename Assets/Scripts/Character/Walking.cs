@@ -11,8 +11,10 @@ public class Walking : MonoBehaviour, IMovementModifier
 
     [Header("Walk Settings")]
     [SerializeField] private float m_MovementSpeed = 5f;
-    [SerializeField] private float m_MovementAcceleration = 1f;
+    [SerializeField] private float m_MovementAcceleration = 0.1f;
     [SerializeField] private float m_MovementAccelerationResetThreshold = 0.2f;
+    [SerializeField] private bool m_EnableWalkWhileHooking = false;
+    [SerializeField] private bool m_EnableWalkWhileJumping = true;
 
     // The actual current velocity, after applying acceleration
     private Vector3 m_CurrentMovementVelocity = Vector3.zero;
@@ -32,11 +34,24 @@ public class Walking : MonoBehaviour, IMovementModifier
 
     private void Update()
     {
+        // Handle walk movement and update our global player state with the current state.
+        GameManager.PlayerState.walking = Walk();
+    }
+
+    private bool Walk()
+    {
+        if (GameManager.PlayerState.hooking && !m_EnableWalkWhileHooking)
+            return false;
+
+        if (GameManager.PlayerState.jumping && !m_EnableWalkWhileJumping)
+            return false;
+
         // Holds the target velocity we want to accelerate towards
         Vector3 targetVelocity = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
+
         targetVelocity.Normalize();
         targetVelocity *= m_MovementSpeed;
-        
+
         m_CurrentMovementVelocity = Vector3.SmoothDamp(m_CurrentMovementVelocity, targetVelocity, ref m_CurrentMovementVelocityDelta, m_MovementAcceleration);
         Vector3 translatedVelocity = transform.forward * m_CurrentMovementVelocity.z + transform.right * m_CurrentMovementVelocity.x;
 
@@ -44,5 +59,10 @@ public class Walking : MonoBehaviour, IMovementModifier
             translatedVelocity = Vector3.zero;
 
         MovementValue = translatedVelocity;
+
+        if (translatedVelocity == Vector3.zero)
+            return false;
+
+        return true;
     }
 }

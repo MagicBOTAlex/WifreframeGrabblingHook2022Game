@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public GameObject Player;
-    public static CharacterState PlayerState = CharacterState.idle;
+    public static CharacterState PlayerState = new CharacterState();
     public GameObject Camera;
     public Texture2D crosshairImage;
 
@@ -27,6 +27,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
