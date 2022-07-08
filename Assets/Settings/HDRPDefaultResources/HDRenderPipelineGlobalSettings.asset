@@ -87,7 +87,7 @@ MonoBehaviour:
   decalLayerName7: Decal Layer 7
   lensAttenuationMode: 0
   colorGradingSpace: 0
-  diffusionProfileSettingsList:
+  m_ObsoleteDiffusionProfileSettingsList:
   - {fileID: 11400000, guid: 48e911a1e337b44e2b85dbc65b47a594, type: 2}
   - {fileID: 11400000, guid: 879ffae44eefa4412bb327928f1a96dd, type: 2}
   rendererListCulling: 0
@@ -103,6 +103,6 @@ MonoBehaviour:
     serializedBakeSettings: []
     serializedBakingSets: []
     m_LightingScenario: Default
-  m_Version: 4
+  m_Version: 5
   m_ShaderVariantLogLevel: 0
   m_ExportShaderVariants: 1
