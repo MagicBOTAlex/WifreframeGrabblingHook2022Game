@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2160.8625, g: 2265.096, b: 3288.399, a: 1}
+  m_IndirectSpecularColor: {r: 2163.6565, g: 2271.4534, b: 3307.2075, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -593,6 +593,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1798073025}
+    - targetCorrespondingSourceObject: {fileID: 4248686732414811478, guid: b6e8f488654f5f9508264c43879e38e8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1798073029}
     - targetCorrespondingSourceObject: {fileID: 4248686733882674157, guid: b6e8f488654f5f9508264c43879e38e8,
         type: 3}
       insertIndex: -1
@@ -720,6 +724,7 @@ GameObject:
   - component: {fileID: 1650439593}
   - component: {fileID: 1650439592}
   - component: {fileID: 1650439591}
+  - component: {fileID: 1650439595}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -814,6 +819,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1650439595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650439590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df27b9289d1e8c4fb82e0df4f4673ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_BuildHeightMesh: 0
+  m_NavMeshData: {fileID: 23800000, guid: a09a935f47f03ef4bb231548c1395431, type: 2}
 --- !u!1 &1798073005 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4248686732414811478, guid: b6e8f488654f5f9508264c43879e38e8,
@@ -897,6 +931,22 @@ MonoBehaviour:
   m_MovementAccelerationResetThreshold: 0.2
   m_EnableWalkWhileHooking: 1
   m_EnableWalkWhileJumping: 1
+--- !u!114 &1798073029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798073005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d07ce676d7afda4dabb3b0f7dd5e654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_IgnoreFromBuild: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1878117437
 GameObject:
   m_ObjectHideFlags: 0
