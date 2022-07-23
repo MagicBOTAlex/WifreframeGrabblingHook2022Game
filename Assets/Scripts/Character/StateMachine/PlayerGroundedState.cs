@@ -1,12 +1,13 @@
-public class PlayerIdleState : PlayerBaseState
+using UnityEngine;
+public class PlayerGroundedState : PlayerBaseState
 {
     /* Pass context and state factory to super class constructor,
      * to access the context and factory in this state method. */
-    public PlayerIdleState(PlayerStateManager currentContext, PlayerStateFactory stateFactory)
+    public PlayerGroundedState(PlayerStateManager currentContext, PlayerStateFactory stateFactory)
     : base (currentContext, stateFactory) {}
     public override void Enter()
     {
-
+        Debug.Log("Entered grounded state.");
     }
     public override void Exit()
     {

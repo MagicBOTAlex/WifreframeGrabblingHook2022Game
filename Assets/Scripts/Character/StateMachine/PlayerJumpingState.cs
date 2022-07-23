@@ -1,8 +1,8 @@
-public class PlayerIdleState : PlayerBaseState
+public class PlayerJumpingState : PlayerBaseState
 {
     /* Pass context and state factory to super class constructor,
      * to access the context and factory in this state method. */
-    public PlayerIdleState(PlayerStateManager currentContext, PlayerStateFactory stateFactory)
+    public PlayerJumpingState(PlayerStateManager currentContext, PlayerStateFactory stateFactory)
     : base (currentContext, stateFactory) {}
     public override void Enter()
     {
