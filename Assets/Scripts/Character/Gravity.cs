@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Gravity : MonoBehaviour, IMovementModifier
 {
+    // NOTE: maybe late integrate this with state machine
     private MovementHandler m_MovementHandler = null;
     private CharacterController m_CharacterController = null;
 

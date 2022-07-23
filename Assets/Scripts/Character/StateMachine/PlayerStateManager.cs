@@ -10,10 +10,12 @@ public class PlayerStateManager : MonoBehaviour
     
     private PlayerSettings m_PlayerSettings = null;
     private ForceReciever m_ForceReciever = null;
+    private CharacterController m_CharacterController = null;
 
 
     public PlayerSettings PlayerSettings { get { return m_PlayerSettings; } private set { m_PlayerSettings = value; } }
     public ForceReciever ForceReciever { get { return m_ForceReciever; } private set { m_ForceReciever = value; } }
+    public CharacterController CharacterController { get { return m_CharacterController; } private set { m_CharacterController = value; } }
 
     private void Start()
     {
@@ -21,6 +23,7 @@ public class PlayerStateManager : MonoBehaviour
 
         PlayerSettings = player.GetComponent<PlayerSettings>();
         ForceReciever = player.GetComponent<ForceReciever>();
+        m_CharacterController = player.GetComponent<CharacterController>();
         //Debug.Log(ForceReciever.MovementValue);
 
         /* Create a new State Factory to generate new states,
