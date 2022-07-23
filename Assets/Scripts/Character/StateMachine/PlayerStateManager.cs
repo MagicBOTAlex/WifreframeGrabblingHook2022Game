@@ -7,11 +7,22 @@ public class PlayerStateManager : MonoBehaviour
 {
     private PlayerBaseState m_CurrentState;
     private PlayerStateFactory m_States;
-
     
+    private PlayerSettings m_PlayerSettings = null;
+    private ForceReciever m_ForceReciever = null;
 
-    private void Awake()
+
+    public PlayerSettings PlayerSettings { get { return m_PlayerSettings; } private set { m_PlayerSettings = value; } }
+    public ForceReciever ForceReciever { get { return m_ForceReciever; } private set { m_ForceReciever = value; } }
+
+    private void Start()
     {
+        GameObject player = GameManager.Instance.Player;
+
+        PlayerSettings = player.GetComponent<PlayerSettings>();
+        ForceReciever = player.GetComponent<ForceReciever>();
+        //Debug.Log(ForceReciever.MovementValue);
+
         /* Create a new State Factory to generate new states,
          * with the context based on this. Meaning we will 
          * pass MonoBehaviour data and other settings/attributes
@@ -25,17 +36,11 @@ public class PlayerStateManager : MonoBehaviour
 
     private void Update()
     {
-        /* Pass the scope of update to the state method, 
-         * and give it a chance to choose a new state. */
-        PlayerBaseState newState = m_CurrentState.Tick();
-        if (newState != m_CurrentState)
-        {
-            Debug.Log("Switching state.");
-            SwitchState(newState);
-        }
+        /* Pass the scope of update to the state method. */
+        m_CurrentState.Tick();
     }
 
-    private void SwitchState(PlayerBaseState newState)
+    public void SwitchState(PlayerBaseState newState)
     {
         if (m_CurrentState != null)
             m_CurrentState.Exit();

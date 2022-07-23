@@ -13,9 +13,9 @@ public class PlayerGroundedState : PlayerBaseState
     {
         
     }
-    public override PlayerBaseState Tick()
+    public override void Tick()
     {
-        return this;
+        CheckSwitchStates();
     }
     public override void InitSubState()
     {
@@ -23,6 +23,9 @@ public class PlayerGroundedState : PlayerBaseState
     }
     public override void CheckSwitchStates()
     {
-        if (m_Context)
+        // Switch to jump root state
+        if (Input.GetButtonDown("Jump"))
+            m_Context.SwitchState(m_Factory.Jumping());
+        
     }
 }

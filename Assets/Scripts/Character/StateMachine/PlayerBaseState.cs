@@ -10,7 +10,7 @@ public abstract class PlayerBaseState
     }
     public abstract void Enter();
     public abstract void Exit();
-    public abstract PlayerBaseState Tick();
+    public abstract void Tick();
     public abstract void InitSubState();
     public abstract void CheckSwitchStates();
     

@@ -12,9 +12,9 @@ public class PlayerGrapplingState : PlayerBaseState
     {
         
     }
-    public override PlayerBaseState Tick()
+    public override void Tick()
     {
-        return this;
+        CheckSwitchStates();
     }
     public override void InitSubState()
     {
