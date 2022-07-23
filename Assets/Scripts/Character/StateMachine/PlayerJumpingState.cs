@@ -12,12 +12,16 @@ public class PlayerJumpingState : PlayerBaseState
     {
         
     }
-    public override PlayerBaseState Tick(float deltaTime)
+    public override PlayerBaseState Tick()
     {
         return this;
     }
     public override void InitSubState()
     {
         
+    }
+    public override void CheckSwitchStates()
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -8,6 +8,8 @@ public class PlayerStateManager : MonoBehaviour
     private PlayerBaseState m_CurrentState;
     private PlayerStateFactory m_States;
 
+    
+
     private void Awake()
     {
         /* Create a new State Factory to generate new states,
@@ -23,9 +25,9 @@ public class PlayerStateManager : MonoBehaviour
 
     private void Update()
     {
-        /* Pass the update function to the state method, 
+        /* Pass the scope of update to the state method, 
          * and give it a chance to choose a new state. */
-        PlayerBaseState newState = m_CurrentState.Tick(Time.deltaTime);
+        PlayerBaseState newState = m_CurrentState.Tick();
         if (newState != m_CurrentState)
         {
             Debug.Log("Switching state.");
