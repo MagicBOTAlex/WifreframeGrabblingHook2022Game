@@ -16,11 +16,13 @@ public class PlayerStateManager : MonoBehaviour
 
     private Vector3 m_MovementInput = Vector3.zero;
     private bool m_IsJumpPressed = false;
+    private bool m_IsFirePressed = false;
 
     public PlayerBaseState CurrentState { get { return m_CurrentState; } set { m_CurrentState = value; } }
 
     public Vector3 MovementInput { get { return m_MovementInput; } private set { m_MovementInput = value; } }
     public bool IsJumpPressed { get { return m_IsJumpPressed; } private set { m_IsJumpPressed = value; } }
+    public bool IsFirePressed { get { return m_IsFirePressed; } private set { m_IsFirePressed = value; } }
     public PlayerSettings PlayerSettings { get { return m_PlayerSettings; } private set { m_PlayerSettings = value; } }
     public ForceReciever ForceReciever { get { return m_ForceReciever; } private set { m_ForceReciever = value; } }
     public CharacterController CharacterController { get { return m_CharacterController; } private set { m_CharacterController = value; } }
@@ -34,7 +36,6 @@ public class PlayerStateManager : MonoBehaviour
         ForceReciever = player.GetComponent<ForceReciever>();
         CharacterController = player.GetComponent<CharacterController>();
         MovementHandler = player.GetComponent<MovementHandler>();
-        //Debug.Log(ForceReciever.MovementValue);
 
         /* Create a new State Factory to generate new states,
          * with the context based on this. Meaning we will 
@@ -56,7 +57,7 @@ public class PlayerStateManager : MonoBehaviour
     private void PollInput()
     {
         MovementInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
-        //Debug.Log($"Move input: {MovementInput}");
         IsJumpPressed = Input.GetButtonDown("Jump");
+        IsFirePressed = Input.GetButtonDown("FireCannon");
     }
 }

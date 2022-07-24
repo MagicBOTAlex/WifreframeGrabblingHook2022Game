@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/hsm_testing.unity
+    guid: c6e38171821c595c49f11167f66109a3
   m_configObjects: {}
