@@ -40,7 +40,7 @@ public class PlayerStateManager : MonoBehaviour
     private void Update()
     {
         /* Pass the scope of update to the state method. */
-        m_CurrentState.Tick();
+        m_CurrentState.TickStates();
     }
 
     public void SwitchState(PlayerBaseState newState)

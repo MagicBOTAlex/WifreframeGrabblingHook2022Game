@@ -6,9 +6,12 @@ public class PlayerJumpingState : PlayerBaseState
     public PlayerJumpingState(PlayerStateManager currentContext, PlayerStateFactory stateFactory)
     : base (currentContext, stateFactory) {}
 
-    // This state's local copy of needed player settings
+    private float m_CheckSwitchDelay = 0.1f;
+    private float m_CurrentCheckSwitchDelay = 0f;
     private ForceReciever m_ForceReciever = null;
     private CharacterController m_CharacterController = null;
+    // This state's local copy of needed player settings
+
     private float m_JumpForce = 0f;
 
     public override void Enter()
@@ -28,7 +31,16 @@ public class PlayerJumpingState : PlayerBaseState
     }
     public override void Tick()
     {
-        CheckSwitchStates();
+        /* Wait for m_CheckSwitchDelay before checking to switch states,
+         * because isgounded() will return true little after jump. */
+        if (m_CurrentCheckSwitchDelay < m_CheckSwitchDelay)
+        {
+            m_CurrentCheckSwitchDelay += Time.deltaTime;
+        }
+        else {
+            CheckSwitchStates();
+        }
+        
     }
     public override void InitSubState()
     {
