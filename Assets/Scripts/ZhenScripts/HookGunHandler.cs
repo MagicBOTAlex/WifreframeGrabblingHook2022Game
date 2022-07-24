@@ -77,8 +77,6 @@ public class HookGunHandler : MonoBehaviour
         #region Shooting part
         if (Input.GetButton("FireCannon") && TargetPos != Vector3.zero)
         {
-            // Set the player state to 'hooking' so other scripts knows
-            GameManager.PlayerState.hooking = true;
 
             if (hookingPosition == Vector3.zero)
             {
@@ -241,7 +239,6 @@ public class HookGunHandler : MonoBehaviour
         else
         {
             PlayerGravityHandler.GravityEnabled = true;
-            GameManager.PlayerState.hooking = false;
 
             hookingPosition = Vector3.zero;
 

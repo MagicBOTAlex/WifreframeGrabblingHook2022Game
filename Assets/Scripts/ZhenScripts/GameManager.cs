@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public GameObject Player;
-    public static CharacterState PlayerState = new CharacterState();
     public GameObject Camera;
     public Texture2D crosshairImage;
 
