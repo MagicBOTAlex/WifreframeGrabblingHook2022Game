@@ -46,8 +46,19 @@ public class PlayerStateManager : MonoBehaviour
     public void SwitchState(PlayerBaseState newState)
     {
         if (m_CurrentState != null)
-            m_CurrentState.Exit();
+            m_CurrentState.ExitStates();
         m_CurrentState = newState;
-        m_CurrentState.Enter();
+        m_CurrentState.EnterStates();
+    }
+    public void SetSubState(PlayerBaseState newSubState)
+    {
+        m_CurrentState.CurrentSubState = newSubState;
+        // Register the current state as the super state of the new sub state
+        SetSuperState(m_CurrentState);
+    }
+
+    public void SetSuperState(PlayerBaseState newSuperState)
+    {
+        m_CurrentState.CurrentSuperState = newSuperState;
     }
 }

@@ -2,8 +2,11 @@ public abstract class PlayerBaseState
 {
     protected PlayerStateFactory m_Factory = null;
     protected PlayerStateManager m_Context = null;
-    protected PlayerBaseState m_CurrentSubState = null;
-    protected PlayerBaseState m_CurrentSuperState = null;
+    private PlayerBaseState m_CurrentSubState = null;
+    private PlayerBaseState m_CurrentSuperState = null;
+
+    public PlayerBaseState CurrentSubState { get { return m_CurrentSubState; } set { m_CurrentSubState = value; }}
+    public PlayerBaseState CurrentSuperState { get { return m_CurrentSuperState; } set { m_CurrentSuperState = value; }}
 
     public PlayerBaseState(PlayerStateManager currentContext, PlayerStateFactory stateFactory)
     {
@@ -22,10 +25,25 @@ public abstract class PlayerBaseState
     public void TickStates()
     {
         Tick();
-        if (m_CurrentSubState != null)
-        {
-            m_CurrentSubState.TickStates();
-        }
+        if (CurrentSubState != null)
+            CurrentSubState.TickStates();
     }
+
+    public void ExitStates()
+    {
+        Exit();
+        if (CurrentSubState != null)
+            CurrentSubState.ExitStates();
+    }
+    
+    public void EnterStates()
+    {
+        Enter();
+        if (CurrentSubState != null)
+            CurrentSubState.EnterStates();
+    }
+
+
+
     
 }
