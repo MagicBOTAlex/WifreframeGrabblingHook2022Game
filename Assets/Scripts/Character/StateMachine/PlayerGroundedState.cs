@@ -34,7 +34,7 @@ public class PlayerGroundedState : PlayerBaseState
     public override void CheckSwitchStates()
     {
         // Switch to jump root state
-        if (Input.GetButtonDown("Jump"))
+        if (m_Context.IsJumpPressed)
         {
             /* If walking while transitioning, then pass the 
              * walk substate to the new root state, instead of
