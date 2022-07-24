@@ -4,14 +4,17 @@ public class PlayerJumpingState : PlayerBaseState
     /* Pass context and state factory to super class constructor,
      * to access the context and factory in this state method. */
     public PlayerJumpingState(PlayerStateManager currentContext, PlayerStateFactory stateFactory)
-    : base (currentContext, stateFactory) {}
+    : base (currentContext, stateFactory) 
+    {
+        IsRootState = true;
+    }
 
     private float m_CheckSwitchDelay = 0.1f;
     private float m_CurrentCheckSwitchDelay = 0f;
     private ForceReciever m_ForceReciever = null;
     private CharacterController m_CharacterController = null;
-    // This state's local copy of needed player settings
 
+    // This state's local copy of needed player settings
     private float m_JumpForce = 0f;
 
     public override void Enter()
@@ -49,7 +52,7 @@ public class PlayerJumpingState : PlayerBaseState
     public override void CheckSwitchStates()
     {
         if (m_CharacterController.isGrounded)
-            m_Context.SwitchState(m_Factory.Grounded());
+            SwitchState(m_Factory.Grounded());
     }
 
     private void HandleJump()

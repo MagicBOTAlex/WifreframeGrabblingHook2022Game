@@ -1,3 +1,4 @@
+using UnityEngine;
 public class PlayerIdleState : PlayerBaseState
 {
     /* Pass context and state factory to super class constructor,
@@ -6,7 +7,7 @@ public class PlayerIdleState : PlayerBaseState
     : base (currentContext, stateFactory) {}
     public override void Enter()
     {
-
+        Debug.Log("Entered Idle state.");
     }
     public override void Exit()
     {
@@ -22,6 +23,10 @@ public class PlayerIdleState : PlayerBaseState
     }
     public override void CheckSwitchStates()
     {
-        throw new System.NotImplementedException();
+        if (m_Context.MovementInput != Vector3.zero)
+        {
+            Debug.Log("Switching to walk state.");
+            SwitchState(m_Factory.Walking());
+        }
     }
 }

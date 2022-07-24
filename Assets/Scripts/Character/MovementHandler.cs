@@ -31,6 +31,8 @@ public class MovementHandler : MonoBehaviour
             movementVelocity += m_MovementModifiers[i].MovementValue;
         }
 
+        //Debug.Log($"Final movement: {movementVelocity}");
+
         // Apply final movement on character
         m_CharacterController.Move(movementVelocity * Time.deltaTime);
     }

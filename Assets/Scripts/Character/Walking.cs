@@ -40,12 +40,6 @@ public class Walking : MonoBehaviour, IMovementModifier
 
     private bool Walk()
     {
-        if (GameManager.PlayerState.hooking && !m_EnableWalkWhileHooking)
-            return false;
-
-        if (GameManager.PlayerState.jumping && !m_EnableWalkWhileJumping)
-            return false;
-
         // Holds the target velocity we want to accelerate towards
         Vector3 targetVelocity = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
 

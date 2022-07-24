@@ -1,10 +1,13 @@
+using UnityEngine;
 public abstract class PlayerBaseState
 {
+    protected bool m_IsRootState = false;
     protected PlayerStateFactory m_Factory = null;
     protected PlayerStateManager m_Context = null;
     private PlayerBaseState m_CurrentSubState = null;
     private PlayerBaseState m_CurrentSuperState = null;
 
+    public bool IsRootState { get { return m_IsRootState; } protected set { m_IsRootState = value; }}
     public PlayerBaseState CurrentSubState { get { return m_CurrentSubState; } set { m_CurrentSubState = value; }}
     public PlayerBaseState CurrentSuperState { get { return m_CurrentSuperState; } set { m_CurrentSuperState = value; }}
 
@@ -42,8 +45,35 @@ public abstract class PlayerBaseState
         if (CurrentSubState != null)
             CurrentSubState.EnterStates();
     }
+    public void SwitchState(PlayerBaseState newState)
+    {
+        ExitStates();
+        
+        /* Only change the super state if the new state is a
+         * root state, otherwise it's a sub state switch. */
+        if (IsRootState)
+        {
+            m_Context.CurrentState = newState;
+        }
+        else if (CurrentSuperState != null)
+        {
+            CurrentSuperState.SetSubState(newState);
+        }
 
+        newState.EnterStates();
+    }
 
+    protected void SetSubState(PlayerBaseState newSubState)
+    {
+        CurrentSubState = newSubState;
 
-    
+        // Register the current state as the super state of the new sub state
+        Debug.Log($"Setting new super state: {this}");
+        newSubState.SetSuperState(this);
+    }
+
+    protected void SetSuperState(PlayerBaseState newSuperState)
+    {
+        CurrentSuperState = newSuperState;
+    }
 }

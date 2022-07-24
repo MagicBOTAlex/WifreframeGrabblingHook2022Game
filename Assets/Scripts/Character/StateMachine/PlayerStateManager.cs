@@ -11,11 +11,20 @@ public class PlayerStateManager : MonoBehaviour
     private PlayerSettings m_PlayerSettings = null;
     private ForceReciever m_ForceReciever = null;
     private CharacterController m_CharacterController = null;
+    private MovementHandler m_MovementHandler = null;
 
 
+    private Vector3 m_MovementInput = Vector3.zero;
+    private bool m_IsJumpPressed = false;
+
+    public PlayerBaseState CurrentState { get { return m_CurrentState; } set { m_CurrentState = value; } }
+
+    public Vector3 MovementInput { get { return m_MovementInput; } private set { m_MovementInput = value; } }
+    public bool IsJumpPressed { get { return m_IsJumpPressed; } private set { m_IsJumpPressed = value; } }
     public PlayerSettings PlayerSettings { get { return m_PlayerSettings; } private set { m_PlayerSettings = value; } }
     public ForceReciever ForceReciever { get { return m_ForceReciever; } private set { m_ForceReciever = value; } }
     public CharacterController CharacterController { get { return m_CharacterController; } private set { m_CharacterController = value; } }
+    public MovementHandler MovementHandler { get { return m_MovementHandler; } private set { m_MovementHandler = value; } }
 
     private void Start()
     {
@@ -23,7 +32,8 @@ public class PlayerStateManager : MonoBehaviour
 
         PlayerSettings = player.GetComponent<PlayerSettings>();
         ForceReciever = player.GetComponent<ForceReciever>();
-        m_CharacterController = player.GetComponent<CharacterController>();
+        CharacterController = player.GetComponent<CharacterController>();
+        MovementHandler = player.GetComponent<MovementHandler>();
         //Debug.Log(ForceReciever.MovementValue);
 
         /* Create a new State Factory to generate new states,
@@ -33,32 +43,20 @@ public class PlayerStateManager : MonoBehaviour
         m_States = new PlayerStateFactory(this);
         
         // Generate a default state
-        SwitchState(m_States.Grounded());
-        
+        CurrentState = m_States.Grounded();
     }
 
     private void Update()
     {
+        PollInput();
         /* Pass the scope of update to the state method. */
         m_CurrentState.TickStates();
     }
 
-    public void SwitchState(PlayerBaseState newState)
+    private void PollInput()
     {
-        if (m_CurrentState != null)
-            m_CurrentState.ExitStates();
-        m_CurrentState = newState;
-        m_CurrentState.EnterStates();
-    }
-    public void SetSubState(PlayerBaseState newSubState)
-    {
-        m_CurrentState.CurrentSubState = newSubState;
-        // Register the current state as the super state of the new sub state
-        SetSuperState(m_CurrentState);
-    }
-
-    public void SetSuperState(PlayerBaseState newSuperState)
-    {
-        m_CurrentState.CurrentSuperState = newSuperState;
+        MovementInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
+        //Debug.Log($"Move input: {MovementInput}");
+        IsJumpPressed = Input.GetButtonDown("Jump");
     }
 }
