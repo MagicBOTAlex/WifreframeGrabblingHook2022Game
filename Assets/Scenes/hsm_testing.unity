@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2156.3108, g: 2259.6272, b: 3280.1475, a: 1}
+  m_IndirectSpecularColor: {r: 2157.4773, g: 2260.3362, b: 3280.4016, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -909,6 +909,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JumpForce: 8
+  MovementSpeed: 13
+  MovementAcceleration: 0.1
+  MovementAccelerationResetThreshold: 0.2
+  EnableWalkWhileHooking: 1
+  EnableWalkWhileJumping: 1
 --- !u!114 &1798073020
 MonoBehaviour:
   m_ObjectHideFlags: 0
