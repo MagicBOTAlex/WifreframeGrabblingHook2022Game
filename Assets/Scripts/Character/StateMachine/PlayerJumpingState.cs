@@ -7,6 +7,7 @@ public class PlayerJumpingState : PlayerBaseState
     : base (currentContext, stateFactory) 
     {
         IsRootState = true;
+        InitSubState();
     }
 
     private float m_CheckSwitchDelay = 0.1f;
@@ -47,12 +48,23 @@ public class PlayerJumpingState : PlayerBaseState
     }
     public override void InitSubState()
     {
-        
+        if (m_Context.MovementInput != Vector3.zero)
+        {
+            SetSubState(m_Factory.Walking());
+        }
     }
     public override void CheckSwitchStates()
     {
         if (m_CharacterController.isGrounded)
-            SwitchState(m_Factory.Grounded());
+        {
+            /* If walking while transitioning, then pass the 
+             * walk substate to the new root state, instead of
+             * creating a new instance. */
+            if (CurrentSubState is PlayerWalkingState)
+                SwitchState(m_Factory.Grounded(), CurrentSubState);
+            else
+                SwitchState(m_Factory.Grounded());
+        }
     }
 
     private void HandleJump()

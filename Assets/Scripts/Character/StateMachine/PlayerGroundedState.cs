@@ -35,7 +35,15 @@ public class PlayerGroundedState : PlayerBaseState
     {
         // Switch to jump root state
         if (Input.GetButtonDown("Jump"))
-            SwitchState(m_Factory.Jumping());
+        {
+            /* If walking while transitioning, then pass the 
+             * walk substate to the new root state, instead of
+             * creating a new instance. */
+            if (CurrentSubState is PlayerWalkingState)
+                SwitchState(m_Factory.Jumping(), CurrentSubState);
+            else
+                SwitchState(m_Factory.Jumping());
+        }
         
     }
 }
