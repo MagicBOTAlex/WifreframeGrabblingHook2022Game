@@ -52,6 +52,10 @@ public class PlayerJumpingState : PlayerBaseState
         {
             SetSubState(m_Factory.Walking());
         }
+        else
+        {
+            SetSubState(m_Factory.Falling());
+        }
     }
     public override void CheckSwitchStates()
     {

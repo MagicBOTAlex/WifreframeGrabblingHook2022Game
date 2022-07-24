@@ -78,7 +78,7 @@ public abstract class PlayerBaseState
         CurrentSubState = newSubState;
 
         // Register the current state as the super state of the new sub state
-        Debug.Log($"Setting new super state: {this}");
+        //Debug.Log($"Setting new super state: {this}");
         newSubState.SetSuperState(this);
     }
 
