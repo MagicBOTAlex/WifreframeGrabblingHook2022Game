@@ -14,7 +14,6 @@ public class PlayerWalkingState : PlayerBaseState, IMovementModifier
     private bool m_EnableWalkWhileHooking;
     private bool m_EnableWalkWhileJumping;
 
-
     // The actual current velocity, after applying acceleration
     private Vector3 m_CurrentMovementVelocity = Vector3.zero;
     // The velocity difference used by the sigmoid function in smoothdamp
@@ -42,7 +41,6 @@ public class PlayerWalkingState : PlayerBaseState, IMovementModifier
     {
         // Register this IMovementModifier to affect final movement vector
         m_MovementHandler.RegisterModifier(this);
-        Debug.Log("Entered Walk state.");
     }
     public override void Exit()
     {

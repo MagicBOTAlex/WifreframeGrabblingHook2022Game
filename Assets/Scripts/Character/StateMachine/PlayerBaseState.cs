@@ -47,22 +47,30 @@ public abstract class PlayerBaseState
     }
     public void SwitchState(PlayerBaseState newState, PlayerBaseState passedSubState = null)
     {
-        ExitStates();
-        
         /* Only change the super state if the new state is a
          * root state, otherwise it's a sub state switch. */
         if (IsRootState)
         {
             m_Context.CurrentState = newState;
             if (passedSubState != null)
-                m_Context.CurrentState.SetSubState(passedSubState);
+            {
+                newState.SetSubState(passedSubState);
+                Exit();
+                newState.Enter();
+            }
+            else {
+                ExitStates();
+                newState.EnterStates();
+            }
         }
         else if (CurrentSuperState != null)
         {
             CurrentSuperState.SetSubState(newState);
+            
+            newState.EnterStates();
         }
 
-        newState.EnterStates();
+        
     }
 
     protected void SetSubState(PlayerBaseState newSubState)

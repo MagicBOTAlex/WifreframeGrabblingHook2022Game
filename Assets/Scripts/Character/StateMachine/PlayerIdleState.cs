@@ -25,7 +25,6 @@ public class PlayerIdleState : PlayerBaseState
     {
         if (m_Context.MovementInput != Vector3.zero)
         {
-            Debug.Log("Switching to walk state.");
             SwitchState(m_Factory.Walking());
         }
     }
