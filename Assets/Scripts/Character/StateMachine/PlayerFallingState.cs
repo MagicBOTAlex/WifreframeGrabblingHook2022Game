@@ -7,7 +7,7 @@ public class PlayerFaillingState : PlayerBaseState
     : base (currentContext, stateFactory) {}
     public override void Enter()
     {
-        Debug.Log("Entered Falling state.");
+        //Debug.Log("Entered Falling state.");
     }
     public override void Exit()
     {

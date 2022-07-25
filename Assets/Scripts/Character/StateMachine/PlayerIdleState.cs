@@ -7,7 +7,7 @@ public class PlayerIdleState : PlayerBaseState
     : base (currentContext, stateFactory) {}
     public override void Enter()
     {
-        Debug.Log("Entered Idle state.");
+        //Debug.Log("Entered Idle state.");
     }
     public override void Exit()
     {

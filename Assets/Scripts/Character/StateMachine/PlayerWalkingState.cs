@@ -41,7 +41,7 @@ public class PlayerWalkingState : PlayerBaseState, IMovementModifier
     {
         // Register this IMovementModifier to affect final movement vector
         m_MovementHandler.RegisterModifier(this);
-        Debug.Log("Entered walk state.");
+        //Debug.Log("Entered walk state.");
     }
     public override void Exit()
     {

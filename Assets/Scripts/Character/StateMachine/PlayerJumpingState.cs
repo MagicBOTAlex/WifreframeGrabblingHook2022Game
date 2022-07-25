@@ -23,7 +23,7 @@ public class PlayerJumpingState : PlayerBaseState
 
     public override void Enter()
     {
-        Debug.Log("Entered Jumping State.");
+        //Debug.Log("Entered Jumping State.");
 
         GrappligGun = GameManager.Instance.GrapplingGun.GetComponent<GrappligGun>();
         if (GrappligGun.CurrentState is GrappligGunIdleState)

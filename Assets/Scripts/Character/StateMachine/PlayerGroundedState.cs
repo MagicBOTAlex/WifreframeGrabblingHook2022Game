@@ -15,7 +15,7 @@ public class PlayerGroundedState : PlayerBaseState
 
     public override void Enter()
     {
-        Debug.Log("Entered grounded state.");
+        //Debug.Log("Entered grounded state.");
         GrappligGun = GameManager.Instance.GrapplingGun.GetComponent<GrappligGun>();
         if (GrappligGun.CurrentState is GrappligGunIdleState)
             GrappligGun.Scout();
