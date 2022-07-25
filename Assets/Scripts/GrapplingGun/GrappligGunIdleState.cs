@@ -12,10 +12,9 @@ public class GrappligGunIdleState : GrappligGunBaseState
 
     public override void Exit()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Leaving Idle grapple gun state.");
     }
     public override void Tick()
     {
-        throw new System.NotImplementedException();
     }
 }

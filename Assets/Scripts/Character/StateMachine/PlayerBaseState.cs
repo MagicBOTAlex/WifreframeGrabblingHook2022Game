@@ -51,7 +51,6 @@ public abstract class PlayerBaseState
          * root state, otherwise it's a sub state switch. */
         if (IsRootState)
         {
-            m_Context.CurrentState = newState;
             if (passedSubState != null)
             {
                 newState.SetSubState(passedSubState);
@@ -62,6 +61,7 @@ public abstract class PlayerBaseState
                 ExitStates();
                 newState.EnterStates();
             }
+            m_Context.CurrentState = newState;
         }
         else if (CurrentSuperState != null)
         {

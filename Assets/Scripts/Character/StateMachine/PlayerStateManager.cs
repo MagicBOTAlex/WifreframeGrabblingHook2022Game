@@ -45,6 +45,7 @@ public class PlayerStateManager : MonoBehaviour
         
         // Generate a default state
         CurrentState = m_States.Grounded();
+        CurrentState.EnterStates();
     }
 
     private void Update()

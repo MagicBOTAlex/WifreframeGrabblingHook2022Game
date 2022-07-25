@@ -12,6 +12,6 @@ public class GrappligGunScoutState : GrappligGunBaseState
     
     public override void Tick()
     {
-        Debug.Log("In Scout grappling gun state.");
+        //Debug.Log("In Scout grappling gun state.");
     }
 }

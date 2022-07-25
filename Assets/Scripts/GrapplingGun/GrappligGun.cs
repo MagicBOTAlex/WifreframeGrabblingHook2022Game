@@ -4,24 +4,25 @@ using UnityEngine;
 
 public class GrappligGun : MonoBehaviour
 {
-    GrappligGunBaseState m_CurrentState = null;
+    private GrappligGunBaseState m_CurrentState = null;
+    public GrappligGunBaseState CurrentState { get { return m_CurrentState; } private set { m_CurrentState = value; }}
 
     private void Start()
     {
         // Get default state
-        m_CurrentState = new GrappligGunIdleState();
+        CurrentState = new GrappligGunIdleState();
     }
 
     private void Update()
     {
         // Update current state
-        m_CurrentState.Tick();
+        CurrentState.Tick();
     }
     private void SwitchState(GrappligGunBaseState newState)
     {
-        m_CurrentState.Exit();
-        m_CurrentState = newState;
-        m_CurrentState.Enter();
+        CurrentState.Exit();
+        CurrentState = newState;
+        CurrentState.Enter();
     }
     public void Scout()
     {

@@ -15,12 +15,20 @@ public class PlayerJumpingState : PlayerBaseState
     private ForceReciever m_ForceReciever = null;
     private CharacterController m_CharacterController = null;
 
+    private GrappligGun m_GrapplingGun = null;
+    protected GrappligGun GrappligGun { get { return m_GrapplingGun; } private set { m_GrapplingGun = value; }}
+
     // This state's local copy of needed player settings
     private float m_JumpForce = 0f;
 
     public override void Enter()
     {
         Debug.Log("Entered Jumping State.");
+
+        GrappligGun = GameManager.Instance.GrapplingGun.GetComponent<GrappligGun>();
+        if (GrappligGun.CurrentState is GrappligGunIdleState)
+            GrappligGun.Scout();
+
         /* Get default player settings, we'll be able to change these member
          * variables and only affect this state, leaving deafults untouched. */
         m_JumpForce = m_Context.PlayerSettings.JumpForce;
