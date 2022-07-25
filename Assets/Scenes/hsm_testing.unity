@@ -1153,6 +1153,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 543450652902369942}
+  - component: {fileID: 919132148911534125}
   m_Layer: 0
   m_Name: GrappleGun
   m_TagString: Untagged
@@ -1160,6 +1161,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &919132148911534125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148911534124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cb41f59b336a9e01a99922420cdfad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2213881407951055931
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,6 +1219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1798073005}
+  GrappleGun: {fileID: 919132148911534124}
   Camera: {fileID: 991119972}
   crosshairImage: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1001 &4730975608348764692

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public GameObject Player;
+    public GameObject GrappleGun;
     public GameObject Camera;
     public Texture2D crosshairImage;
 

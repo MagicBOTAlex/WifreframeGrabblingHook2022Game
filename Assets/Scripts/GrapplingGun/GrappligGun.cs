@@ -23,7 +23,6 @@ public class GrappligGun : MonoBehaviour
         m_CurrentState = newState;
         m_CurrentState.Enter();
     }
-
     public void Scout()
     {
         SwitchState(new GrappligGunScoutState());
