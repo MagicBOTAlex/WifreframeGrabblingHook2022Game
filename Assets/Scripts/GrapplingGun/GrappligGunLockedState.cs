@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class GrappligGunLockedState : MonoBehaviour
+public class GrappligGunLockedState : GrappligGunBaseState
 {
-    // Start is called before the first frame update
-    void Start()
+    public GrappligGunLockedState(GrappligGun currentContext) : base(currentContext) {}
+
+    public override void Enter()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Exit()
     {
-        
+
+    }
+
+    public override void Tick()
+    {
+
     }
 }
