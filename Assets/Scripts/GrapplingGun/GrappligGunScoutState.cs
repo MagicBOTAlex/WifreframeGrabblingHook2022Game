@@ -1,8 +1,9 @@
+using UnityEngine;
 public class GrappligGunScoutState : GrappligGunBaseState
 {
     public override void Enter()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Entered Scout grappling gun state.");
     }
     public override void Exit()
     {
@@ -11,6 +12,6 @@ public class GrappligGunScoutState : GrappligGunBaseState
     
     public override void Tick()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("In Scout grappling gun state.");
     }
 }

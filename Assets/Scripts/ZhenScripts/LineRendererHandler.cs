@@ -22,7 +22,7 @@ public class LineRendererHandler : MonoBehaviour
         else
             LR = gameObject.AddComponent<LineRenderer>();
     }
-
+ 
     private void Update()
     {
         if (!Enabled) return;

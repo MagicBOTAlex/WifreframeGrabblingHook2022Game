@@ -1,3 +1,4 @@
+using UnityEngine;
 public class GrappligGunIdleState : GrappligGunBaseState
 {
     public GrappligGunIdleState()
@@ -6,7 +7,7 @@ public class GrappligGunIdleState : GrappligGunBaseState
 
     public override void Enter()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Entered Idle grappling gun state.");
     }
 
     public override void Exit()
