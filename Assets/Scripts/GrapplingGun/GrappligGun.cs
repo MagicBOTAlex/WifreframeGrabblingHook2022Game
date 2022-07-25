@@ -9,7 +9,7 @@ public class GrappligGun : MonoBehaviour
     private void Start()
     {
         // Get default state
-        m_CurrentState = GrappligGunBaseState.Defualt();
+        m_CurrentState = new GrappligGunIdleState();
     }
 
     private void SwitchState(GrappligGunBaseState newState)
