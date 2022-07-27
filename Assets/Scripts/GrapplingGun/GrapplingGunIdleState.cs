@@ -1,7 +1,7 @@
 using UnityEngine;
-public class GrappligGunIdleState : GrappligGunBaseState
+public class GrapplingGunIdleState : GrapplingGunBaseState
 {
-    public GrappligGunIdleState(GrappligGun currentContext) : base(currentContext) {}
+    public GrapplingGunIdleState(GrapplingGun currentContext) : base(currentContext) {}
     public override void Enter()
     {
         Debug.Log("Entered Idle grappling gun state.");

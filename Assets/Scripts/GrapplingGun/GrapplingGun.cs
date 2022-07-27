@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrappligGun : MonoBehaviour
+public class GrapplingGun : MonoBehaviour
 {
     /* Grappling Gun Settings. */
     [Header("Grappling Gun Settings")]
@@ -11,7 +11,7 @@ public class GrappligGun : MonoBehaviour
     private Vector3 m_GrapplingTargetPosition = Vector3.zero;
 
     /* Context member variables. */
-    private GrappligGunBaseState m_CurrentState = null;
+    private GrapplingGunBaseState m_CurrentState = null;
     private Camera m_Camera = null;
     private bool m_IsFireGrapplingGunPressed = false;
 
@@ -19,7 +19,7 @@ public class GrappligGun : MonoBehaviour
     public float ScoutCastRadius { get { return m_ScoutCastRadius; } set { m_ScoutCastRadius = value; }}
     public Vector3 GrapplingTargetPosition { get { return m_GrapplingTargetPosition; } set { m_GrapplingTargetPosition = value; }}
     public Camera Camera { get { return m_Camera; } private set { m_Camera = value; }}
-    public GrappligGunBaseState CurrentState { get { return m_CurrentState; } private set { m_CurrentState = value; }}
+    public GrapplingGunBaseState CurrentState { get { return m_CurrentState; } private set { m_CurrentState = value; }}
     public bool IsFireGrapplingGunPressed { get { return m_IsFireGrapplingGunPressed; } private set { m_IsFireGrapplingGunPressed = value; }}
 
     private void Start()
@@ -28,7 +28,7 @@ public class GrappligGun : MonoBehaviour
         Camera = GameManager.Instance.Camera.GetComponent<Camera>();
 
         // Get default state, with this as context
-        CurrentState = new GrappligGunIdleState(this);
+        CurrentState = new GrapplingGunIdleState(this);
     }
 
     private void Update()
@@ -42,7 +42,7 @@ public class GrappligGun : MonoBehaviour
     {
         IsFireGrapplingGunPressed = Input.GetButton("FireCannon");
     }
-    public void SwitchState(GrappligGunBaseState newState)
+    public void SwitchState(GrapplingGunBaseState newState)
     {
         CurrentState.Exit();
         CurrentState = newState;
@@ -50,6 +50,6 @@ public class GrappligGun : MonoBehaviour
     }
     public void Scout()
     {
-        SwitchState(new GrappligGunScoutState(this));
+        SwitchState(new GrapplingGunScoutState(this));
     }
 }

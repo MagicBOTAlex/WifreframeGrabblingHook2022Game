@@ -7,11 +7,11 @@ public class GrapplingGunStateDisplay : MonoBehaviour
 {
     public Text m_StateTextField;
 
-    GrappligGun m_GrapplingGun;
+    GrapplingGun m_GrapplingGun;
 
     void Start()
     {
-        m_GrapplingGun = GameManager.Instance.GrapplingGun.GetComponent<GrappligGun>();
+        m_GrapplingGun = GameManager.Instance.GrapplingGun.GetComponent<GrapplingGun>();
     }
     void Update()
     {
