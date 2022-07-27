@@ -1915,7 +1915,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 543450652902369942}
+  - component: {fileID: 919132148911534126}
   - component: {fileID: 919132148911534125}
+  - component: {fileID: 919132148911534127}
   m_Layer: 0
   m_Name: GrappleGun
   m_TagString: Untagged
@@ -1935,7 +1937,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cb41f59b336a9e01a99922420cdfad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ScoutCastRadius: 1
+--- !u!114 &919132148911534126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148911534124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6de9d5023a713d63a4bc1d48da7f459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &919132148911534127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148911534124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbc42e5655e6b649f851f0b8bd75d51a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScoutCastRadius: 1
 --- !u!1 &2213881407951055931
 GameObject:
   m_ObjectHideFlags: 0

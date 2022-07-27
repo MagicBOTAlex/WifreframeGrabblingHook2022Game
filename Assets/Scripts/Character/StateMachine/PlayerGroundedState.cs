@@ -10,13 +10,13 @@ public class PlayerGroundedState : PlayerBaseState
         InitSubState();
     }
 
-    private GrapplingGun m_GrapplingGun = null;
-    protected GrapplingGun GrappligGun { get { return m_GrapplingGun; } private set { m_GrapplingGun = value; }}
+    private GrapplingGunContext m_GrapplingGun = null;
+    protected GrapplingGunContext GrappligGun { get { return m_GrapplingGun; } private set { m_GrapplingGun = value; }}
 
     public override void Enter()
     {
         //Debug.Log("Entered grounded state.");
-        GrappligGun = GameManager.Instance.GrapplingGun.GetComponent<GrapplingGun>();
+        GrappligGun = GameManager.Instance.GrapplingGun.GetComponent<GrapplingGunContext>();
         if (GrappligGun.CurrentState is GrapplingGunIdleState)
             GrappligGun.Scout();
     }

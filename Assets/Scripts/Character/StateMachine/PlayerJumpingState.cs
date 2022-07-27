@@ -15,8 +15,8 @@ public class PlayerJumpingState : PlayerBaseState
     private ForceReciever m_ForceReciever = null;
     private CharacterController m_CharacterController = null;
 
-    private GrapplingGun m_GrapplingGun = null;
-    protected GrapplingGun GrappligGun { get { return m_GrapplingGun; } private set { m_GrapplingGun = value; }}
+    private GrapplingGunContext m_GrapplingGun = null;
+    protected GrapplingGunContext GrappligGun { get { return m_GrapplingGun; } private set { m_GrapplingGun = value; }}
 
     // This state's local copy of needed player settings
     private float m_JumpForce = 0f;
@@ -25,7 +25,7 @@ public class PlayerJumpingState : PlayerBaseState
     {
         //Debug.Log("Entered Jumping State.");
 
-        GrappligGun = GameManager.Instance.GrapplingGun.GetComponent<GrapplingGun>();
+        GrappligGun = GameManager.Instance.GrapplingGun.GetComponent<GrapplingGunContext>();
         if (GrappligGun.CurrentState is GrapplingGunIdleState)
             GrappligGun.Scout();
 

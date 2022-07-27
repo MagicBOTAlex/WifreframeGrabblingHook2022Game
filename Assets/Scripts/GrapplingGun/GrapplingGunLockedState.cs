@@ -1,6 +1,14 @@
+using UnityEngine;
 public class GrapplingGunLockedState : GrapplingGunBaseState
 {
-    public GrapplingGunLockedState(GrapplingGun currentContext) : base(currentContext) {}
+    public GrapplingGunLockedState(GrapplingGunContext currentContext, GameObject currentTarget) : base(currentContext) 
+    {
+        Context.GrapplingTargetPosition = currentTarget.transform.position;
+    }
+    public GrapplingGunLockedState(GrapplingGunContext currentContext, Vector3 currentTarget) : base(currentContext) 
+    {
+        Context.GrapplingTargetPosition = currentTarget;
+    }
 
     public override void Enter()
     {

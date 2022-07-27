@@ -7,12 +7,8 @@ public class PlayerWalkingState : PlayerBaseState, IMovementModifier
     private Transform m_Player = null;
     public Vector3 MovementValue { get; private set; }
 
-    // This state's local copy of needed player settings
-    private float m_MovementSpeed;
-    private float m_MovementAcceleration;
-    private float m_MovementAccelerationResetThreshold;
-    private bool m_EnableWalkWhileHooking;
-    private bool m_EnableWalkWhileJumping;
+    // This state's local copy of player settings
+    private PlayerSettings m_PlayerSettings;
 
     // The actual current velocity, after applying acceleration
     private Vector3 m_CurrentMovementVelocity = Vector3.zero;
@@ -31,11 +27,7 @@ public class PlayerWalkingState : PlayerBaseState, IMovementModifier
         m_CharacterController = m_Context.CharacterController;
         m_Player = GameManager.Instance.Player.transform;
 
-        m_MovementSpeed = m_Context.PlayerSettings.MovementSpeed;
-        m_MovementAcceleration = m_Context.PlayerSettings.MovementAcceleration;
-        m_MovementAccelerationResetThreshold = m_Context.PlayerSettings.MovementAccelerationResetThreshold;
-        m_EnableWalkWhileHooking = m_Context.PlayerSettings.EnableWalkWhileHooking;
-        m_EnableWalkWhileJumping = m_Context.PlayerSettings.EnableWalkWhileJumping;
+        m_PlayerSettings = m_Context.PlayerSettings;
     }
     public override void Enter()
     {
@@ -78,12 +70,12 @@ public class PlayerWalkingState : PlayerBaseState, IMovementModifier
         Vector3 targetVelocity = m_Context.MovementInput;
 
         targetVelocity.Normalize();
-        targetVelocity *= m_MovementSpeed;
+        targetVelocity *= m_PlayerSettings.MovementSpeed;
 
-        m_CurrentMovementVelocity = Vector3.SmoothDamp(m_CurrentMovementVelocity, targetVelocity, ref m_CurrentMovementVelocityDelta, m_MovementAcceleration);
+        m_CurrentMovementVelocity = Vector3.SmoothDamp(m_CurrentMovementVelocity, targetVelocity, ref m_CurrentMovementVelocityDelta, m_PlayerSettings.MovementAcceleration);
         Vector3 translatedVelocity = m_Player.forward * m_CurrentMovementVelocity.z + m_Player.right * m_CurrentMovementVelocity.x;
 
-        if (translatedVelocity.magnitude < m_MovementAccelerationResetThreshold)
+        if (translatedVelocity.magnitude < m_PlayerSettings.MovementAccelerationResetThreshold)
             translatedVelocity = Vector3.zero;
 
         MovementValue = translatedVelocity;
