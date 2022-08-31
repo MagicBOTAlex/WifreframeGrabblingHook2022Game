@@ -1,6 +1,7 @@
 using UnityEngine;
 public class GrapplingGunIdleState : GrapplingGunBaseState
 {
+    // Pass the context to the abstract super class GrapplingGunBaseState
     public GrapplingGunIdleState(GrapplingGunContext currentContext) : base(currentContext) {}
     public override void Enter()
     {
@@ -13,5 +14,10 @@ public class GrapplingGunIdleState : GrapplingGunBaseState
     }
     public override void Tick()
     {
+    }
+
+    protected override void CheckSwitchStates()
+    {
+        throw new System.NotImplementedException();
     }
 }

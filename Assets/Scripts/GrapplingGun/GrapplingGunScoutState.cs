@@ -1,6 +1,7 @@
 using UnityEngine;
-public class GrapplingGunScoutState : GrapplingGunBaseState, IGrapplingGunBehavior
+public class GrapplingGunScoutState : GrapplingGunBaseState
 {
+    // Pass the context to the abstract super class GrapplingGunBaseState
     public GrapplingGunScoutState(GrapplingGunContext currentContext) : base(currentContext) 
     {
         m_GrapplingGunSettings = Context.GrapplingGunSettings;
@@ -11,10 +12,7 @@ public class GrapplingGunScoutState : GrapplingGunBaseState, IGrapplingGunBehavi
         m_GrapplingGunBehavior.SetContext(Context);
         m_GrapplingGunBehavior.SetSettings(m_GrapplingGunSettings);
     }
-
-    /* Redirect to behavior class implementation. */
     private GrapplingGunBehavior m_GrapplingGunBehavior = null;
-    public GameObject GetClosestGrabbableObject() { return m_GrapplingGunBehavior.GetClosestGrabbableObject(); }
 
     // This state's local copy of Grappling Gun settings
     private GrapplingGunSettings m_GrapplingGunSettings = null;
@@ -38,7 +36,7 @@ public class GrapplingGunScoutState : GrapplingGunBaseState, IGrapplingGunBehavi
         Scout();
     }
 
-    private void CheckSwitchStates()
+    protected override void CheckSwitchStates()
     {
         if (m_TargetObject)
         {
@@ -46,9 +44,12 @@ public class GrapplingGunScoutState : GrapplingGunBaseState, IGrapplingGunBehavi
         }
     }
 
+    /// <summary>
+    /// Gets called every frame while GrapplingGunScoutState
+    /// is the current active state.
+    /// </summary>
     private void Scout()
     {
-        m_TargetObject = GetClosestGrabbableObject();
-
+        m_TargetObject = m_GrapplingGunBehavior.GetClosestGrabbableObject();
     }
 }

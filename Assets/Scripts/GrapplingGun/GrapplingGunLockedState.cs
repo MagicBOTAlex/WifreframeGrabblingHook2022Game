@@ -24,4 +24,9 @@ public class GrapplingGunLockedState : GrapplingGunBaseState
     {
         
     }
+
+    protected override void CheckSwitchStates()
+    {
+        throw new System.NotImplementedException();
+    }
 }

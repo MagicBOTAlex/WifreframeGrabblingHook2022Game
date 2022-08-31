@@ -1,3 +1,9 @@
+/*
+/GrapplingGunBehavior.cs is a class that will handle generic grappling gun behaviour,
+which includes things like finding the right object to either swing or zip towards.
+
+That way every state can use this code and not duplicate generic common code.
+*/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +15,10 @@ public class GrapplingGunBehavior : MonoBehaviour, IGrapplingGunBehavior
     private GrapplingGunSettings GrapplingGunSettings { get { return m_GrapplingGunSettings; } set { m_GrapplingGunSettings = value; }}
     private GrapplingGunContext Context { get { return m_Context; } set { m_Context = value; }}
 
+    /// <summary>
+    /// Gets the closests grabbable object in the player's look direction.
+    /// Returns the GameObject to the closest object or null if no object were found.
+    /// </summary>
     public GameObject GetClosestGrabbableObject()
     {
         RaycastHit hit;
@@ -23,6 +33,27 @@ public class GrapplingGunBehavior : MonoBehaviour, IGrapplingGunBehavior
             return hit.transform.gameObject;
         }
         return null;
+    }
+
+    /// <summary>
+    /// Gets the closests grabbable point in the player's look direction.
+    /// Returns the position to the point where the hook can attach
+    /// to or Vector3.zero if no point were found.
+    /// </summary>
+    public Vector3 GetClosestGrabbablePoint()
+    {
+        RaycastHit hit;
+        // casts a sphereCast from the main camera and checks if it hits.
+        // if the ray hits then it will check if the object that was hit has a "GrabblebleObject" tag
+        if (Physics.SphereCast(Context.Camera.transform.position, GrapplingGunSettings.ScoutCastRadius, Context.Camera.transform.forward, out hit, 100.0f))
+        {
+            if (!hit.collider.CompareTag("GrabblebleObject"))
+                return Vector3.zero;
+            //Debug.DrawLine(MainCamera.transform.position, HitInfo.point);   // draws a debug line that shows the ray when hitting an object
+            Debug.Log(hit.transform.position);
+            return hit.point;
+        }
+        return Vector3.zero;
     }
 
     public void SetContext(GrapplingGunContext currentContext)

@@ -1,3 +1,11 @@
+/*
+GrapplingGunContext.cs is a class that is the main context which controls
+the grappling gun state machine. It for example holds the value of the current
+state and has the implementation to switch the state. It also holds member
+variables such as GrapplingGunSettings and Camera, so every state can get
+access to theese values.
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +23,7 @@ public class GrapplingGunContext : MonoBehaviour
     private Camera m_Camera = null;
     private bool m_IsFireGrapplingGunPressed = false;
 
-    /* Getters and setters for the active state. */
+    /* Getters and setters which the current active state can use to get references. */
     public GrapplingGunSettings GrapplingGunSettings { get { return m_GrapplingGunSettings; } private set { m_GrapplingGunSettings = value; }}
     public Vector3 GrapplingTargetPosition { get { return m_GrapplingTargetPosition; } set { m_GrapplingTargetPosition = value; }}
     public GameObject GrapplingGun { get { return m_GrapplingGun; } private set { m_GrapplingGun = value; }}
@@ -38,7 +46,8 @@ public class GrapplingGunContext : MonoBehaviour
     private void Update()
     {
         PollInput();
-        // Update current state
+
+        // Tick current state
         CurrentState.Tick();
     }
     
@@ -46,6 +55,13 @@ public class GrapplingGunContext : MonoBehaviour
     {
         IsFireGrapplingGunPressed = Input.GetButton("FireCannon");
     }
+
+    /// <summary>
+    /// Switches to a different state. First it will signal an exit to the
+    /// current active state by calling Exit(). After that swicth to the new
+    /// state and signal an enter on the new state by calling Enter().
+    /// </summary>
+    /// <param name="newState">The new state to switch to.</param>
     public void SwitchState(GrapplingGunBaseState newState)
     {
         CurrentState.Exit();
