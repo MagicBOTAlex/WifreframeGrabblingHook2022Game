@@ -19,6 +19,7 @@ public class GrapplingGunContext : MonoBehaviour
 
     /* Context member variables. */
     private GameObject m_GrapplingGun = null;
+    private GameObject m_GrapplingGunHolder = null;
     private GrapplingGunBaseState m_CurrentState = null;
     private Camera m_Camera = null;
     private bool m_IsFireGrapplingGunPressed = false;
@@ -27,13 +28,15 @@ public class GrapplingGunContext : MonoBehaviour
     public GrapplingGunSettings GrapplingGunSettings { get { return m_GrapplingGunSettings; } private set { m_GrapplingGunSettings = value; }}
     public Vector3 GrapplingTargetPosition { get { return m_GrapplingTargetPosition; } set { m_GrapplingTargetPosition = value; }}
     public GameObject GrapplingGun { get { return m_GrapplingGun; } private set { m_GrapplingGun = value; }}
+    public GameObject GrapplingGunHolder { get { return m_GrapplingGunHolder; } private set { m_GrapplingGunHolder = value; }}
     public Camera Camera { get { return m_Camera; } private set { m_Camera = value; }}
     public GrapplingGunBaseState CurrentState { get { return m_CurrentState; } private set { m_CurrentState = value; }}
     public bool IsFireGrapplingGunPressed { get { return m_IsFireGrapplingGunPressed; } private set { m_IsFireGrapplingGunPressed = value; }}
 
     private void Start()
     {
-        m_GrapplingGun = GameManager.Instance.GrapplingGun;
+        GrapplingGun = GameManager.Instance.GrapplingGun;
+        GrapplingGunHolder = GameManager.Instance.GrapplingGunHolder;
 
         // Set up context members
         Camera = GameManager.Instance.Camera.GetComponent<Camera>();

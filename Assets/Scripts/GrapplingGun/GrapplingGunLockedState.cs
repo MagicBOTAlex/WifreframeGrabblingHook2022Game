@@ -55,7 +55,7 @@ public class GrapplingGunLockedState : GrapplingGunBaseState
         If there's no new position (Vector3.zero), it will go back into
         scout state. */ 
         m_TargetHitPoint = m_GrapplingGunBehavior.GetClosestGrabbablePoint();
-        Debug.Log($"Locked to: {m_TargetHitPoint}");
+        //Debug.Log($"Locked to: {m_TargetHitPoint}");
 
         LookAtTarget();
 
@@ -68,12 +68,18 @@ public class GrapplingGunLockedState : GrapplingGunBaseState
     /// </summary>
     private void LookAtTarget()
     {
-        // Rotate the grapplings gun forward vector to point at the target
-        Context.GrapplingGun.transform.LookAt(m_TargetHitPoint);
+        // Create a rotation to make the cannon look at the target pos
+        Vector3 vecToTarget = m_TargetHitPoint - Context.GrapplingGunHolder.transform.position;
+        Debug.DrawLine(Context.GrapplingGunHolder.transform.position, m_TargetHitPoint);
+        //vecToTarget.Normalize();
+        Quaternion targetRotation = Quaternion.LookRotation(vecToTarget);
+        //targetRotation.eulerAngles += m_GrapplingGunSettings.CannonForwardVecOffset;
+        Debug.Log($"target pos: {m_TargetHitPoint}, cannon + vec to target: {Context.GrapplingGunHolder.transform.position + vecToTarget}");
 
+        Context.GrapplingGunHolder.transform.rotation = Quaternion.Slerp(Context.GrapplingGunHolder.transform.rotation, targetRotation, m_GrapplingGunSettings.CannonRotationSpeed * Time.deltaTime);
         // Fix the rotation, because the model's forward vector is pointing
         // in the wrong direction
-        Context.GrapplingGun.transform.Rotate(m_GrapplingGunSettings.CannonForwardVecOffset);
+        //Context.GrapplingGun.transform.Rotate(m_GrapplingGunSettings.CannonForwardVecOffset);
     }
 
     protected override void CheckSwitchStates()

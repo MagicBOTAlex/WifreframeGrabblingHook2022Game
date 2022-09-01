@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2154.814, g: 2258.5896, b: 3280.1995, a: 1}
+  m_IndirectSpecularColor: {r: 2156.3801, g: 2259.7188, b: 3280.1758, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1962,6 +1962,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScoutCastRadius: 1
+  MaxCastDist: 200
+  CastLayerIdx: 6
+  CannonForwardVecOffset: {x: 0, y: 90, z: 0}
+  CannonRotationSpeed: 5
 --- !u!1 &2213881407951055931
 GameObject:
   m_ObjectHideFlags: 0
@@ -2096,7 +2100,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7396654156575411370}
-  m_LocalRotation: {x: 0.50000006, y: -0.50000006, z: 0.49999997, w: -0.49999994}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
@@ -2104,7 +2108,7 @@ Transform:
   - {fileID: 8169145260887228571}
   m_Father: {fileID: 543450652902369942}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: -90}
 --- !u!1 &6131276281076511403
 GameObject:
   m_ObjectHideFlags: 0
@@ -2247,6 +2251,36 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 505696081}
     m_Modifications:
+    - target: {fileID: 576571675738229628, guid: c5a595eff227f9c41a117271e0a35e61,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001449891513289349, guid: c5a595eff227f9c41a117271e0a35e61,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1468730764679102598, guid: c5a595eff227f9c41a117271e0a35e61,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1468730765147281046, guid: c5a595eff227f9c41a117271e0a35e61,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6142650769756951467, guid: c5a595eff227f9c41a117271e0a35e61,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6259971916370249557, guid: c5a595eff227f9c41a117271e0a35e61,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8261259930940496463, guid: c5a595eff227f9c41a117271e0a35e61,
         type: 3}
       propertyPath: m_RootOrder
@@ -2306,6 +2340,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Props
+      objectReference: {fileID: 0}
+    - target: {fileID: 8261259930940496464, guid: c5a595eff227f9c41a117271e0a35e61,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
