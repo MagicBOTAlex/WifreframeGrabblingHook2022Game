@@ -56,21 +56,10 @@ public class GrapplingGunBehavior : MonoBehaviour, IGrapplingGunBehavior
                                 1 << GrapplingGunSettings.CastLayerIdx))
         {
             // If execution gets to here, it means that the spherecast has hit a object that's hookable
-            Debug.Log($"Locked gun to target at: {hit.point}");
+            //Debug.Log($"Locked gun to target at: {hit.point}");
             return hit.point;
         }
         return Vector3.zero;
-        /*
-        if (Physics.SphereCast(Context.Camera.transform.position, GrapplingGunSettings.ScoutCastRadius, Context.Camera.transform.forward, out hit, 100.0f))
-        {
-            if (!hit.collider.CompareTag("GrabblebleObject"))
-                return Vector3.zero;
-            //Debug.DrawLine(MainCamera.transform.position, HitInfo.point);   // draws a debug line that shows the ray when hitting an object
-            Debug.Log(hit.transform.position);
-            return hit.point;
-        }
-        return Vector3.zero;
-        */
     }
 
     public void SetContext(GrapplingGunContext currentContext)
