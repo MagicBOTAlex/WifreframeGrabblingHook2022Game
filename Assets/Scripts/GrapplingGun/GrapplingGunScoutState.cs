@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 public class GrapplingGunScoutState : GrapplingGunBaseState
 {
@@ -36,7 +37,16 @@ public class GrapplingGunScoutState : GrapplingGunBaseState
     {
         // Scout for hookable points in the look direction
         Scout();
+
+        // Slerp rotation of cannon towards the default rotation
+        ResetCannonRotation();
+
         CheckSwitchStates();
+    }
+
+    private void ResetCannonRotation()
+    {
+        Context.GrapplingGunHolder.transform.rotation = Quaternion.Slerp(Context.GrapplingGunHolder.transform.rotation, Context.Camera.transform.rotation * Quaternion.identity, m_GrapplingGunSettings.CannonRotationSpeed * Time.deltaTime);
     }
 
     protected override void CheckSwitchStates()

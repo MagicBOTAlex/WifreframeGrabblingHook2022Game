@@ -68,9 +68,11 @@ public class GrapplingGunLockedState : GrapplingGunBaseState
     /// </summary>
     private void LookAtTarget()
     {
+        if (m_TargetHitPoint == Vector3.zero)
+            return;
         // Create a rotation to make the cannon look at the target pos
         Vector3 vecToTarget = m_TargetHitPoint - Context.GrapplingGunHolder.transform.position;
-        Debug.DrawLine(Context.GrapplingGunHolder.transform.position, m_TargetHitPoint);
+        Debug.DrawLine(Context.GrapplingGunHolder.transform.position, Context.GrapplingGunHolder.transform.position + vecToTarget);
         //vecToTarget.Normalize();
         Quaternion targetRotation = Quaternion.LookRotation(vecToTarget);
         //targetRotation.eulerAngles += m_GrapplingGunSettings.CannonForwardVecOffset;

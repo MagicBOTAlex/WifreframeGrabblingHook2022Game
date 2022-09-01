@@ -44,7 +44,17 @@ public class GrapplingGunBehavior : MonoBehaviour, IGrapplingGunBehavior
     {
         RaycastHit hit;
 
-        /* Casts a sphere with a radius of GrapplingGunSettings.ScoutCastRadius and max distance of
+        /*
+        Check if the player is directly looking at a hookable position, and if so don't extend the search.
+        */
+        if (Physics.Raycast(    Context.Camera.transform.position, Context.Camera.transform.forward, out hit,
+                                GrapplingGunSettings.MaxCastDist, 1 << GrapplingGunSettings.CastLayerIdx))
+        {
+            return hit.point;
+        }
+        /* 
+        If the player is not directly looking at a hookable position then extend the search by
+        casting a sphere with a radius of GrapplingGunSettings.ScoutCastRadius and max distance of
         GrapplingGunSettings.MaxCastDist. The sphere cast starts at the camera's position and travels in
         the direction of it's facing direction (blue basevector). The sphere cast will only collide
         with objects that are on the same layer as defined by GrapplingGunSettings.CastLayerIdx. The left
