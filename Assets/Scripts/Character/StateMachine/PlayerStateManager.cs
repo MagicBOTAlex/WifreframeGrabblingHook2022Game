@@ -51,7 +51,7 @@ public class PlayerStateManager : MonoBehaviour
     private void Update()
     {
         PollInput();
-        /* Pass the scope of update to the state method. */
+        /* Update current state and possible sub-states. */
         m_CurrentState.TickStates();
     }
 

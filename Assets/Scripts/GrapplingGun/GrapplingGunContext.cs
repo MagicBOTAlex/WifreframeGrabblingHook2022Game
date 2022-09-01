@@ -22,6 +22,8 @@ public class GrapplingGunContext : MonoBehaviour
     private GameObject m_GrapplingGunHolder = null;
     private GrapplingGunBaseState m_CurrentState = null;
     private Camera m_Camera = null;
+    private GameObject m_Player = null;
+    private PlayerStateManager m_PlayerStateManager = null;
     private bool m_IsFireGrapplingGunPressed = false;
 
     /* Getters and setters which the current active state can use to get references. */
@@ -31,12 +33,16 @@ public class GrapplingGunContext : MonoBehaviour
     public GameObject GrapplingGunHolder { get { return m_GrapplingGunHolder; } private set { m_GrapplingGunHolder = value; }}
     public Camera Camera { get { return m_Camera; } private set { m_Camera = value; }}
     public GrapplingGunBaseState CurrentState { get { return m_CurrentState; } private set { m_CurrentState = value; }}
+    public GameObject Player { get { return m_Player; } private set { m_Player = value; }}
+    public PlayerStateManager PlayerStateManager { get { return m_PlayerStateManager; } private set { m_PlayerStateManager = value; }}
     public bool IsFireGrapplingGunPressed { get { return m_IsFireGrapplingGunPressed; } private set { m_IsFireGrapplingGunPressed = value; }}
 
     private void Start()
     {
         GrapplingGun = GameManager.Instance.GrapplingGun;
         GrapplingGunHolder = GameManager.Instance.GrapplingGunHolder;
+        Player = GameManager.Instance.Player;
+        PlayerStateManager = Player.GetComponent<PlayerStateManager>();
 
         // Set up context members
         Camera = GameManager.Instance.Camera.GetComponent<Camera>();

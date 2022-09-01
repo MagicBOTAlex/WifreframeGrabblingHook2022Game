@@ -9,7 +9,7 @@ public class GrapplingGunFiringState : GrapplingGunBaseState
     public override void Enter()
     {
         Debug.Log("Firing Hook!");
-        
+        Context.PlayerStateManager.CurrentState.SwitchState(Context.PlayerStateManager.CurrentState.Factory.Grappling());
     }
 
     public override void Exit()

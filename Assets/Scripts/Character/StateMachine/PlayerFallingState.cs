@@ -25,7 +25,7 @@ public class PlayerFaillingState : PlayerBaseState
     {
         if (m_Context.MovementInput != Vector3.zero)
         {
-            SwitchState(m_Factory.Walking());
+            SwitchState(Factory.Walking());
         }
     }
 }

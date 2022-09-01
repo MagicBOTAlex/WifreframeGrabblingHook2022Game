@@ -61,7 +61,7 @@ public class PlayerWalkingState : PlayerBaseState, IMovementModifier
     {
         // Fully deaccelerated, then switch to idle
         if (MovementValue == Vector3.zero)
-            SwitchState(m_Factory.Idle());
+            SwitchState(Factory.Idle());
     }
 
     private void HandleWalk()

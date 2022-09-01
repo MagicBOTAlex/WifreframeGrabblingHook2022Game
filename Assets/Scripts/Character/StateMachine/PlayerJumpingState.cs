@@ -58,11 +58,11 @@ public class PlayerJumpingState : PlayerBaseState
     {
         if (m_Context.MovementInput != Vector3.zero)
         {
-            SetSubState(m_Factory.Walking());
+            SetSubState(Factory.Walking());
         }
         else
         {
-            SetSubState(m_Factory.Falling());
+            SetSubState(Factory.Falling());
         }
     }
     public override void CheckSwitchStates()
@@ -73,9 +73,9 @@ public class PlayerJumpingState : PlayerBaseState
              * walk substate to the new root state, instead of
              * creating a new instance. */
             if (CurrentSubState is PlayerWalkingState)
-                SwitchState(m_Factory.Grounded(), CurrentSubState);
+                SwitchState(Factory.Grounded(), CurrentSubState);
             else
-                SwitchState(m_Factory.Grounded());
+                SwitchState(Factory.Grounded());
         }
     }
 

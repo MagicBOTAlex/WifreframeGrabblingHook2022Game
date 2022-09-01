@@ -23,8 +23,16 @@ public class PlayerStateFactory
     {
         return new PlayerGroundedState(m_Context, this);
     }
+    public PlayerBaseState Grappling()
+    {
+        return new PlayerGrapplingState(m_Context, this);
+    }
     public PlayerBaseState Falling()
     {
         return new PlayerFaillingState(m_Context, this);
+    }
+    public PlayerBaseState Dragging()
+    {
+        return new PlayerDraggingState(m_Context, this);
     }
 }

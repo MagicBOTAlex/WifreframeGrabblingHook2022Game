@@ -2,7 +2,7 @@ using UnityEngine;
 public abstract class PlayerBaseState
 {
     protected bool m_IsRootState = false;
-    protected PlayerStateFactory m_Factory = null;
+    private PlayerStateFactory m_Factory = null;
     protected PlayerStateManager m_Context = null;
     private PlayerBaseState m_CurrentSubState = null;
     private PlayerBaseState m_CurrentSuperState = null;
@@ -10,6 +10,7 @@ public abstract class PlayerBaseState
     public bool IsRootState { get { return m_IsRootState; } protected set { m_IsRootState = value; }}
     public PlayerBaseState CurrentSubState { get { return m_CurrentSubState; } set { m_CurrentSubState = value; }}
     public PlayerBaseState CurrentSuperState { get { return m_CurrentSuperState; } set { m_CurrentSuperState = value; }}
+    public PlayerStateFactory Factory { get { return m_Factory; } private set { m_Factory = value; }}
 
     public PlayerBaseState(PlayerStateManager currentContext, PlayerStateFactory stateFactory)
     {
@@ -69,8 +70,6 @@ public abstract class PlayerBaseState
             
             newState.EnterStates();
         }
-
-        
     }
 
     protected void SetSubState(PlayerBaseState newSubState)
