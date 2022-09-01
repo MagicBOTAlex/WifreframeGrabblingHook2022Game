@@ -43,8 +43,24 @@ public class GrapplingGunBehavior : MonoBehaviour, IGrapplingGunBehavior
     public Vector3 GetClosestGrabbablePoint()
     {
         RaycastHit hit;
-        // casts a sphereCast from the main camera and checks if it hits.
-        // if the ray hits then it will check if the object that was hit has a "GrabblebleObject" tag
+
+        /* Casts a sphere with a radius of GrapplingGunSettings.ScoutCastRadius and max distance of
+        GrapplingGunSettings.MaxCastDist. The sphere cast starts at the camera's position and travels in
+        the direction of it's facing direction (blue basevector). The sphere cast will only collide
+        with objects that are on the same layer as defined by GrapplingGunSettings.CastLayerIdx. The left
+        shift bitwise operation is for creating a bitmask to represent the layer(s) it should collide with.
+        See: https://docs.unity3d.com/Manual/use-layers.html
+        */
+        if (Physics.SphereCast( Context.Camera.transform.position, GrapplingGunSettings.ScoutCastRadius, 
+                                Context.Camera.transform.forward, out hit, GrapplingGunSettings.MaxCastDist, 
+                                1 << GrapplingGunSettings.CastLayerIdx))
+        {
+            // If execution gets to here, it means that the spherecast has hit a object that's hookable
+            Debug.Log($"Locked gun to target at: {hit.point}");
+            return hit.point;
+        }
+        return Vector3.zero;
+        /*
         if (Physics.SphereCast(Context.Camera.transform.position, GrapplingGunSettings.ScoutCastRadius, Context.Camera.transform.forward, out hit, 100.0f))
         {
             if (!hit.collider.CompareTag("GrabblebleObject"))
@@ -54,6 +70,7 @@ public class GrapplingGunBehavior : MonoBehaviour, IGrapplingGunBehavior
             return hit.point;
         }
         return Vector3.zero;
+        */
     }
 
     public void SetContext(GrapplingGunContext currentContext)

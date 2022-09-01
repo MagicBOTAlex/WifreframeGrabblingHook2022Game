@@ -8,6 +8,7 @@ public class GrapplingGunScoutState : GrapplingGunBaseState
 
         // Apply state specific settings
 
+        // Set up the grappling gun behaviour
         m_GrapplingGunBehavior = Context.GrapplingGun.GetComponent<GrapplingGunBehavior>();
         m_GrapplingGunBehavior.SetContext(Context);
         m_GrapplingGunBehavior.SetSettings(m_GrapplingGunSettings);
@@ -19,6 +20,7 @@ public class GrapplingGunScoutState : GrapplingGunBaseState
 
     /* Local member variables. */
     private GameObject m_TargetObject = null;
+    private Vector3 m_TargetHitPoint = Vector3.zero;
 
     /* Base state implementations. */
     public override void Enter()
@@ -32,15 +34,16 @@ public class GrapplingGunScoutState : GrapplingGunBaseState
 
     public override void Tick()
     {
-        CheckSwitchStates();
+        // Scout for hookable points in the look direction
         Scout();
+        CheckSwitchStates();
     }
 
     protected override void CheckSwitchStates()
     {
-        if (m_TargetObject)
+        if (m_TargetHitPoint != Vector3.zero)
         {
-            Context.SwitchState(new GrapplingGunLockedState(Context, m_TargetObject));
+            Context.SwitchState(new GrapplingGunLockedState(Context, m_TargetHitPoint));
         }
     }
 
@@ -50,6 +53,7 @@ public class GrapplingGunScoutState : GrapplingGunBaseState
     /// </summary>
     private void Scout()
     {
-        m_TargetObject = m_GrapplingGunBehavior.GetClosestGrabbableObject();
+        //m_TargetObject = m_GrapplingGunBehavior.GetClosestGrabbableObject();
+        m_TargetHitPoint = m_GrapplingGunBehavior.GetClosestGrabbablePoint();
     }
 }
