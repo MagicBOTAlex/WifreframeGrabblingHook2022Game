@@ -3,7 +3,7 @@ using UnityEngine;
 public class GrapplingGunLockedState : GrapplingGunBaseState
 {
     // Ctor for gameobject
-    public GrapplingGunLockedState(GrapplingGunContext currentContext, GameObject currentTarget) : base(currentContext) 
+    public GrapplingGunLockedState(GrapplingGunContext currentContext, GameObject currentTarget) : base(currentContext)
     {
         // Set settings from context
         m_GrapplingGunSettings = Context.GrapplingGunSettings;
@@ -70,18 +70,17 @@ public class GrapplingGunLockedState : GrapplingGunBaseState
     {
         if (m_TargetHitPoint == Vector3.zero)
             return;
+        
         // Create a rotation to make the cannon look at the target pos
         Vector3 vecToTarget = m_TargetHitPoint - Context.GrapplingGunHolder.transform.position;
         Debug.DrawLine(Context.GrapplingGunHolder.transform.position, Context.GrapplingGunHolder.transform.position + vecToTarget);
         //vecToTarget.Normalize();
         Quaternion targetRotation = Quaternion.LookRotation(vecToTarget);
         //targetRotation.eulerAngles += m_GrapplingGunSettings.CannonForwardVecOffset;
-        Debug.Log($"target pos: {m_TargetHitPoint}, cannon + vec to target: {Context.GrapplingGunHolder.transform.position + vecToTarget}");
+        //Debug.Log($"target pos: {m_TargetHitPoint}, cannon + vec to target: {Context.GrapplingGunHolder.transform.position + vecToTarget}");
 
         Context.GrapplingGunHolder.transform.rotation = Quaternion.Slerp(Context.GrapplingGunHolder.transform.rotation, targetRotation, m_GrapplingGunSettings.CannonRotationSpeed * Time.deltaTime);
-        // Fix the rotation, because the model's forward vector is pointing
-        // in the wrong direction
-        //Context.GrapplingGun.transform.Rotate(m_GrapplingGunSettings.CannonForwardVecOffset);
+
     }
 
     protected override void CheckSwitchStates()
@@ -98,6 +97,12 @@ public class GrapplingGunLockedState : GrapplingGunBaseState
                 // Switch to scout state
                 Context.SwitchState(new GrapplingGunScoutState(Context));
             }
+        }
+
+        // If the gun is fired, then switch to firing state
+        if (Context.IsFireGrapplingGunPressed)
+        {
+            Context.SwitchState(new GrapplingGunFiringState(Context));
         }
     }
 }

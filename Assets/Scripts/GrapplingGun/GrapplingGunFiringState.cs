@@ -1,18 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GrapplingGunFiringState : MonoBehaviour
+public class GrapplingGunFiringState : GrapplingGunBaseState
 {
-    // Start is called before the first frame update
-    void Start()
+    public GrapplingGunFiringState(GrapplingGunContext currentContext) : base(currentContext) 
+    {
+
+    }
+    public override void Enter()
+    {
+        Debug.Log("Firing Hook!");
+        
+    }
+
+    public override void Exit()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void Tick()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void CheckSwitchStates()
     {
-        
+        throw new System.NotImplementedException();
     }
 }

@@ -8,7 +8,7 @@ public class GrapplingGunSettings : MonoBehaviour
     // The offset in which to apply to the cannon's forward vector so the model
     // points it hook in the direction of the forward vector. Should be Vector3.zero
     // if the model is modelled correctly.
-    [SerializeField] public Vector3 CannonForwardVecOffset = new Vector3(0f, 90f, 0f);
+    //[SerializeField] public Vector3 CannonForwardVecOffset = new Vector3(0f, 90f, 0f);
     [SerializeField] public float CannonRotationSpeed = 50f;
 
 }
