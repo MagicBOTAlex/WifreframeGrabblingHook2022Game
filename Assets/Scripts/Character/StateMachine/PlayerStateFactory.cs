@@ -27,12 +27,12 @@ public class PlayerStateFactory
     {
         return new PlayerGrapplingState(m_Context, this);
     }
+    public PlayerBaseState Airborne()
+    {
+        return new PlayerAirborneState(m_Context, this);
+    }
     public PlayerBaseState Falling()
     {
         return new PlayerFaillingState(m_Context, this);
-    }
-    public PlayerBaseState Dragging()
-    {
-        return new PlayerDraggingState(m_Context, this);
     }
 }

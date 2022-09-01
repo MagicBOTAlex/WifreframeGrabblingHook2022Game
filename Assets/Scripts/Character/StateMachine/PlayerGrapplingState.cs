@@ -6,11 +6,11 @@ public class PlayerGrapplingState : PlayerBaseState
     : base (currentContext, stateFactory)
     {
         IsRootState = true;
-        InitSubState();
+        
     }
     public override void Enter()
     {
-
+        InitSubState();
     }
     public override void Exit()
     {
@@ -22,8 +22,10 @@ public class PlayerGrapplingState : PlayerBaseState
     }
     public override void InitSubState()
     {
-        // Should just default to dragging state
-        SetSubState(Factory.Dragging());
+        if (CurrentSubState != null)
+            return;
+        // Should just default to walking state
+        SetSubState(Factory.Walking());
     }
     public override void CheckSwitchStates()
     {
