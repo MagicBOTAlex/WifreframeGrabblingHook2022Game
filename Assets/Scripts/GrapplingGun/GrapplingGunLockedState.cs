@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 public class GrapplingGunLockedState : GrapplingGunBaseState
 {
@@ -56,7 +57,23 @@ public class GrapplingGunLockedState : GrapplingGunBaseState
         m_TargetHitPoint = m_GrapplingGunBehavior.GetClosestGrabbablePoint();
         Debug.Log($"Locked to: {m_TargetHitPoint}");
 
+        LookAtTarget();
+
         CheckSwitchStates();
+    }
+
+    /// <summary>
+    /// Rotates the grappling gun so that it points in
+    /// the direction of the target position m_TargetHitPoint
+    /// </summary>
+    private void LookAtTarget()
+    {
+        // Rotate the grapplings gun forward vector to point at the target
+        Context.GrapplingGun.transform.LookAt(m_TargetHitPoint);
+
+        // Fix the rotation, because the model's forward vector is pointing
+        // in the wrong direction
+        Context.GrapplingGun.transform.Rotate(m_GrapplingGunSettings.CannonForwardVecOffset);
     }
 
     protected override void CheckSwitchStates()
