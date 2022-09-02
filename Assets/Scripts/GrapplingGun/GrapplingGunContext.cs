@@ -29,6 +29,7 @@ public class GrapplingGunContext : MonoBehaviour
     private Transform m_HookDefaultPosition = null;
     private GameObject m_Hook = null;
     private bool m_IsFireGrapplingGunPressed = false;
+    private bool m_FireGrappleLock = false;
 
     /* Getters and setters which the current active state can use to get references. */
     public GrapplingGunSettings GrapplingGunSettings { get { return m_GrapplingGunSettings; } private set { m_GrapplingGunSettings = value; }}
@@ -43,7 +44,7 @@ public class GrapplingGunContext : MonoBehaviour
     public GrapplingGunBaseState CurrentState { get { return m_CurrentState; } private set { m_CurrentState = value; }}
     public GameObject Player { get { return m_Player; } private set { m_Player = value; }}
     public PlayerStateManager PlayerStateManager { get { return m_PlayerStateManager; } private set { m_PlayerStateManager = value; }}
-    public bool IsFireGrapplingGunPressed { get { return m_IsFireGrapplingGunPressed; } private set { m_IsFireGrapplingGunPressed = value; }}
+    public bool IsFireGrapplingGunPressed { get { return m_IsFireGrapplingGunPressed && !m_FireGrappleLock; } private set { m_IsFireGrapplingGunPressed = value; }}
 
     private void Start()
     {
@@ -76,6 +77,9 @@ public class GrapplingGunContext : MonoBehaviour
     private void PollInput()
     {
         IsFireGrapplingGunPressed = Input.GetButton("FireCannon");
+        // if the player releases fire button then free the lock
+        if (!m_IsFireGrapplingGunPressed)
+            m_FireGrappleLock = false;
     }
 
     /// <summary>
@@ -93,5 +97,14 @@ public class GrapplingGunContext : MonoBehaviour
     public void Scout()
     {
         SwitchState(new GrapplingGunScoutState(this));
+    }
+
+    /// <summary>
+    /// Locks the fire grapple input. Cancels the grapple until
+    /// the fire button is released again.
+    /// </summary>
+    public void CancelGrapple()
+    {
+        m_FireGrappleLock = true;
     }
 }

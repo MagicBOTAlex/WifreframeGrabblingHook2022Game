@@ -61,7 +61,7 @@ public class GrapplingGunLockedState : GrapplingGunBaseState
             Context.Hook.transform.position = Vector3.Lerp(Context.Hook.transform.position, Context.HookDefaultPosition.position, m_GrapplingGunSettings.HookSpeed * Time.deltaTime);
             m_GrapplingGunBehavior.DrawWireToHook();
         }
-    }        
+    }
 
     public override void Tick()
     {

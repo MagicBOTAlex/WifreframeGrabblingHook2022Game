@@ -12,7 +12,7 @@ public class PlayerStateManager : MonoBehaviour
     private ForceReciever m_ForceReciever = null;
     private CharacterController m_CharacterController = null;
     private MovementHandler m_MovementHandler = null;
-
+    private GameObject m_GrapplingGun = null;
 
     private Vector3 m_MovementInput = Vector3.zero;
     private bool m_IsJumpPressed = false;
@@ -24,6 +24,7 @@ public class PlayerStateManager : MonoBehaviour
     public bool IsJumpPressed { get { return m_IsJumpPressed; } private set { m_IsJumpPressed = value; } }
     public bool IsFirePressed { get { return m_IsFirePressed; } private set { m_IsFirePressed = value; } }
     public PlayerSettings PlayerSettings { get { return m_PlayerSettings; } private set { m_PlayerSettings = value; } }
+    public GameObject GrapplingGun { get { return m_GrapplingGun; } private set { m_GrapplingGun = value; } }
     public ForceReciever ForceReciever { get { return m_ForceReciever; } private set { m_ForceReciever = value; } }
     public CharacterController CharacterController { get { return m_CharacterController; } private set { m_CharacterController = value; } }
     public MovementHandler MovementHandler { get { return m_MovementHandler; } private set { m_MovementHandler = value; } }
@@ -36,6 +37,7 @@ public class PlayerStateManager : MonoBehaviour
         ForceReciever = player.GetComponent<ForceReciever>();
         CharacterController = player.GetComponent<CharacterController>();
         MovementHandler = player.GetComponent<MovementHandler>();
+        GrapplingGun = GameManager.Instance.GrapplingGun;
 
         /* Create a new State Factory to generate new states,
          * with the context based on this. Meaning we will 

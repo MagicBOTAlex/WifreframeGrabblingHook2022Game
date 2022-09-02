@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GrapplingGunAttachedState : GrapplingGunBaseState
@@ -17,12 +18,22 @@ public class GrapplingGunAttachedState : GrapplingGunBaseState
 
     public override void Enter()
     {
-        //Context.SwitchState(new GrapplingGunScoutState(Context));
+        // Signal player it can now drag
+        PlayerGrapplingState gState = (Context.PlayerStateManager.CurrentState as PlayerGrapplingState);
+        if (gState != null)
+        {
+            gState.ShouldDrag = true;
+        }
     }
 
     public override void Exit()
     {
-        
+        // Signal player it should stop dragging
+        PlayerGrapplingState gState = (Context.PlayerStateManager.CurrentState as PlayerGrapplingState);
+        if (gState != null)
+        {
+            gState.ShouldDrag = false;
+        }
     }
 
     public override void Tick()
@@ -30,6 +41,7 @@ public class GrapplingGunAttachedState : GrapplingGunBaseState
         m_GrapplingGunBehavior.DrawWireToHook();
         CheckSwitchStates();
     }
+
 
     protected override void CheckSwitchStates()
     {
@@ -56,5 +68,10 @@ public class GrapplingGunAttachedState : GrapplingGunBaseState
             }
             return;
         }
+    }
+
+    public void CancelGrapple()
+    {
+
     }
 }

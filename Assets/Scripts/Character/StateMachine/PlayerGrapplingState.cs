@@ -1,3 +1,4 @@
+using UnityEngine;
 public class PlayerGrapplingState : PlayerBaseState
 {
      /* Pass context and state factory to super class constructor,
@@ -8,6 +9,9 @@ public class PlayerGrapplingState : PlayerBaseState
         IsRootState = true;
         
     }
+
+    private bool m_ShouldDrag = false;
+    public bool ShouldDrag { get { return m_ShouldDrag; } set { m_ShouldDrag = value; }}
     public override void Enter()
     {
         InitSubState();
@@ -39,6 +43,10 @@ public class PlayerGrapplingState : PlayerBaseState
                 SwitchState(Factory.Jumping(), CurrentSubState);
             else
                 SwitchState(Factory.Jumping());
+            
+            // If the grappling gun was grappling then cancel it through it's context
+            m_Context.GrapplingGun.GetComponent<GrapplingGunContext>().CancelGrapple();
+
         }
     }
 }
