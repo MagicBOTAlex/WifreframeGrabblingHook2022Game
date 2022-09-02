@@ -4,7 +4,16 @@ public class GrapplingGunAttachedState : GrapplingGunBaseState
 {
     public GrapplingGunAttachedState(GrapplingGunContext currentContext) : base(currentContext)
     {
+        // Set settings from context
+        m_GrapplingGunSettings = Context.GrapplingGunSettings;
+
+        // Set up the grappling gun behaviour
+        m_GrapplingGunBehavior = Context.GrapplingGun.GetComponent<GrapplingGunBehavior>();
+        m_GrapplingGunBehavior.SetContext(Context);
+        m_GrapplingGunBehavior.SetSettings(m_GrapplingGunSettings);
     }
+    private GrapplingGunSettings m_GrapplingGunSettings = null;
+    private GrapplingGunBehavior m_GrapplingGunBehavior = null;
 
     public override void Enter()
     {
@@ -18,7 +27,7 @@ public class GrapplingGunAttachedState : GrapplingGunBaseState
 
     public override void Tick()
     {
-        
+        m_GrapplingGunBehavior.DrawWireToHook();
         CheckSwitchStates();
     }
 
@@ -46,13 +55,6 @@ public class GrapplingGunAttachedState : GrapplingGunBaseState
                     Context.PlayerStateManager.CurrentState.SwitchState(Context.PlayerStateManager.CurrentState.Factory.Airborne());
             }
             return;
-        }
-
-        // Switch to attached state if the hook got to the target position
-        if (Context.Hook.transform.position == Context.GrapplingTargetPosition)
-        {
-            // Set grappling gun to attached state
-            Context.SwitchState(new GrapplingGunAttachedState(Context));
         }
     }
 }

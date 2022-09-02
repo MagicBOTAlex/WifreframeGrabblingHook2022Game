@@ -25,6 +25,7 @@ public class GrapplingGunContext : MonoBehaviour
     private Camera m_Camera = null;
     private GameObject m_Player = null;
     private PlayerStateManager m_PlayerStateManager = null;
+    private LineRenderer m_LineRenderer = null;
     private Transform m_HookDefaultPosition = null;
     private GameObject m_Hook = null;
     private bool m_IsFireGrapplingGunPressed = false;
@@ -34,6 +35,7 @@ public class GrapplingGunContext : MonoBehaviour
     public Vector3 GrapplingTargetPosition { get { return m_GrapplingTargetPosition; } set { m_GrapplingTargetPosition = value; }}
     public GameObject GrapplingGun { get { return m_GrapplingGun; } private set { m_GrapplingGun = value; }}
     public GameObject Cannon { get { return m_Cannon; } private set { m_Cannon = value; }}
+    public LineRenderer LineRenderer { get { return m_LineRenderer; } private set { m_LineRenderer = value; }}
     public GameObject Hook { get { return m_Hook; } private set { m_Hook = value; }}
     public Transform HookDefaultPosition { get { return m_HookDefaultPosition; } private set { m_HookDefaultPosition = value; }}
     public GameObject GrapplingGunHolder { get { return m_GrapplingGunHolder; } private set { m_GrapplingGunHolder = value; }}
@@ -53,9 +55,11 @@ public class GrapplingGunContext : MonoBehaviour
         HookDefaultPosition = GameManager.Instance.HookDefaultPosition.transform;
         Cannon = GameManager.Instance.Cannon;
 
+        LineRenderer = GrapplingGun.GetComponent<LineRenderer>();
+
         // Set up context members
         Camera = GameManager.Instance.Camera.GetComponent<Camera>();
-        GrapplingGunSettings = m_GrapplingGun.GetComponent<GrapplingGunSettings>();
+        GrapplingGunSettings = GrapplingGun.GetComponent<GrapplingGunSettings>();
         
         // Get default state, with this as context
         CurrentState = new GrapplingGunIdleState(this);

@@ -7,9 +7,15 @@ public class GrapplingGunFiringState : GrapplingGunBaseState
     {
         // Set settings from context
         m_GrapplingGunSettings = Context.GrapplingGunSettings;
+
+        // Set up the grappling gun behaviour
+        m_GrapplingGunBehavior = Context.GrapplingGun.GetComponent<GrapplingGunBehavior>();
+        m_GrapplingGunBehavior.SetContext(Context);
+        m_GrapplingGunBehavior.SetSettings(m_GrapplingGunSettings);
     }
 
     private GrapplingGunSettings m_GrapplingGunSettings = null;
+    private GrapplingGunBehavior m_GrapplingGunBehavior = null;
     private float m_AttachDistance;
     public override void Enter()
     {
@@ -31,19 +37,20 @@ public class GrapplingGunFiringState : GrapplingGunBaseState
 
     public override void Exit()
     {
-        
+
     }
 
     public override void Tick()
     {
         m_AttachDistance = Vector3.Distance(Context.Hook.transform.position, Context.GrapplingTargetPosition);
         ShootHook();
+        m_GrapplingGunBehavior.DrawWireToHook();
         CheckSwitchStates();
     }
 
     private void ShootHook()
     {
-        if (m_AttachDistance < m_GrapplingGunSettings.HookAttachThreshold)
+        if (m_AttachDistance > m_GrapplingGunSettings.HookAttachThreshold)
             Context.Hook.transform.position = Vector3.Lerp(Context.Hook.transform.position, Context.GrapplingTargetPosition, m_GrapplingGunSettings.HookSpeed * Time.deltaTime);
         else
             Context.Hook.transform.position = Context.GrapplingTargetPosition;

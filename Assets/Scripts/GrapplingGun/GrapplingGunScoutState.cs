@@ -47,11 +47,17 @@ public class GrapplingGunScoutState : GrapplingGunBaseState
     private void ResetCannon()
     {
         // Lerp hook back to cannon
-        Context.Hook.transform.position = Vector3.Lerp(Context.Hook.transform.position, Context.HookDefaultPosition.position, m_GrapplingGunSettings.HookSpeed * Time.deltaTime);
+        
         if (Vector3.Distance(Context.Hook.transform.position, Context.HookDefaultPosition.position) <= m_GrapplingGunSettings.HookAttachThreshold)
         {
             Context.Hook.transform.position = Context.HookDefaultPosition.position;
             Context.Hook.transform.parent = Context.Cannon.transform;
+            Context.LineRenderer.enabled = false;
+        }
+        else
+        {
+            Context.Hook.transform.position = Vector3.Lerp(Context.Hook.transform.position, Context.HookDefaultPosition.position, m_GrapplingGunSettings.HookSpeed * Time.deltaTime);
+            m_GrapplingGunBehavior.DrawWireToHook();
         }
 
         // Rotate cannon back to it's default

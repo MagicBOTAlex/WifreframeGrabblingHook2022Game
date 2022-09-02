@@ -4,8 +4,6 @@ which includes things like finding the right object to either swing or zip towar
 
 That way every state can use this code and not duplicate generic common code.
 */
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GrapplingGunBehavior : MonoBehaviour, IGrapplingGunBehavior
@@ -70,6 +68,18 @@ public class GrapplingGunBehavior : MonoBehaviour, IGrapplingGunBehavior
             return hit.point;
         }
         return Vector3.zero;
+    }
+
+    public void DrawWireToHook()
+    {
+        // Enable the lr if it's disabled
+        //Debug.Log(Context.LineRenderer.enabled);
+        if (!Context.LineRenderer.enabled)
+            Context.LineRenderer.enabled = true;
+
+        // Set the start of the line to the grappling gun's position
+        Context.LineRenderer.SetPosition(0, Context.GrapplingGun.transform.position);
+        Context.LineRenderer.SetPosition(1, Context.Hook.transform.position);
     }
 
     public void SetContext(GrapplingGunContext currentContext)
