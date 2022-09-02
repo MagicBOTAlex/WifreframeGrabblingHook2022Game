@@ -29,6 +29,16 @@ public class PlayerGrapplingState : PlayerBaseState
     }
     public override void CheckSwitchStates()
     {
-        
+        // Switch to jump root state
+        if (m_Context.IsJumpPressed)
+        {
+            /* If walking while transitioning, then pass the 
+             * walk substate to the new root state, instead of
+             * creating a new instance. */
+            if (CurrentSubState is PlayerWalkingState)
+                SwitchState(Factory.Jumping(), CurrentSubState);
+            else
+                SwitchState(Factory.Jumping());
+        }
     }
 }

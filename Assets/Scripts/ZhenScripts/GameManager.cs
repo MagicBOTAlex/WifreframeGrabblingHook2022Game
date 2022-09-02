@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
     public GameObject GrapplingGun;
     public GameObject GrapplingGunHolder;
+    public GameObject Cannon;
+    public GameObject Hook;
+    public GameObject HookDefaultPosition;
     public GameObject Camera;
     public Texture2D crosshairImage;
 

@@ -20,16 +20,22 @@ public class GrapplingGunContext : MonoBehaviour
     /* Context member variables. */
     private GameObject m_GrapplingGun = null;
     private GameObject m_GrapplingGunHolder = null;
+    private GameObject m_Cannon = null;
     private GrapplingGunBaseState m_CurrentState = null;
     private Camera m_Camera = null;
     private GameObject m_Player = null;
     private PlayerStateManager m_PlayerStateManager = null;
+    private Transform m_HookDefaultPosition = null;
+    private GameObject m_Hook = null;
     private bool m_IsFireGrapplingGunPressed = false;
 
     /* Getters and setters which the current active state can use to get references. */
     public GrapplingGunSettings GrapplingGunSettings { get { return m_GrapplingGunSettings; } private set { m_GrapplingGunSettings = value; }}
     public Vector3 GrapplingTargetPosition { get { return m_GrapplingTargetPosition; } set { m_GrapplingTargetPosition = value; }}
     public GameObject GrapplingGun { get { return m_GrapplingGun; } private set { m_GrapplingGun = value; }}
+    public GameObject Cannon { get { return m_Cannon; } private set { m_Cannon = value; }}
+    public GameObject Hook { get { return m_Hook; } private set { m_Hook = value; }}
+    public Transform HookDefaultPosition { get { return m_HookDefaultPosition; } private set { m_HookDefaultPosition = value; }}
     public GameObject GrapplingGunHolder { get { return m_GrapplingGunHolder; } private set { m_GrapplingGunHolder = value; }}
     public Camera Camera { get { return m_Camera; } private set { m_Camera = value; }}
     public GrapplingGunBaseState CurrentState { get { return m_CurrentState; } private set { m_CurrentState = value; }}
@@ -43,6 +49,9 @@ public class GrapplingGunContext : MonoBehaviour
         GrapplingGunHolder = GameManager.Instance.GrapplingGunHolder;
         Player = GameManager.Instance.Player;
         PlayerStateManager = Player.GetComponent<PlayerStateManager>();
+        Hook = GameManager.Instance.Hook;
+        HookDefaultPosition = GameManager.Instance.HookDefaultPosition.transform;
+        Cannon = GameManager.Instance.Cannon;
 
         // Set up context members
         Camera = GameManager.Instance.Camera.GetComponent<Camera>();

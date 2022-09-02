@@ -26,7 +26,7 @@ public class GrapplingGunScoutState : GrapplingGunBaseState
     /* Base state implementations. */
     public override void Enter()
     {
-        //Debug.Log("Entered Scout grappling gun state.");
+        
     }
     public override void Exit()
     {
@@ -38,14 +38,23 @@ public class GrapplingGunScoutState : GrapplingGunBaseState
         // Scout for hookable points in the look direction
         Scout();
 
-        // Slerp rotation of cannon towards the default rotation
-        ResetCannonRotation();
+        // Slerp rotation of cannon and lerp hook position towards the default value
+        ResetCannon();
 
         CheckSwitchStates();
     }
 
-    private void ResetCannonRotation()
+    private void ResetCannon()
     {
+        // Lerp hook back to cannon
+        Context.Hook.transform.position = Vector3.Lerp(Context.Hook.transform.position, Context.HookDefaultPosition.position, m_GrapplingGunSettings.HookSpeed * Time.deltaTime);
+        if (Vector3.Distance(Context.Hook.transform.position, Context.HookDefaultPosition.position) <= m_GrapplingGunSettings.HookAttachThreshold)
+        {
+            Context.Hook.transform.position = Context.HookDefaultPosition.position;
+            Context.Hook.transform.parent = Context.Cannon.transform;
+        }
+
+        // Rotate cannon back to it's default
         Context.GrapplingGunHolder.transform.rotation = Quaternion.Slerp(Context.GrapplingGunHolder.transform.rotation, Context.Camera.transform.rotation * Quaternion.identity, m_GrapplingGunSettings.CannonRotationSpeed * Time.deltaTime);
     }
 

@@ -1,11 +1,16 @@
+using System;
 using UnityEngine;
 
 public class GrapplingGunFiringState : GrapplingGunBaseState
 {
     public GrapplingGunFiringState(GrapplingGunContext currentContext) : base(currentContext) 
     {
-
+        // Set settings from context
+        m_GrapplingGunSettings = Context.GrapplingGunSettings;
     }
+
+    private GrapplingGunSettings m_GrapplingGunSettings = null;
+    private float m_AttachDistance;
     public override void Enter()
     {
         //Debug.Log("Firing Hook!");
@@ -13,13 +18,14 @@ public class GrapplingGunFiringState : GrapplingGunBaseState
         {
             // Pass the instance of the current walking sub state to the new root state
             // to save mem i/o and lag
-            Debug.Log("Passing inst");
             Context.PlayerStateManager.CurrentState.SwitchState(Context.PlayerStateManager.CurrentState.Factory.Grappling(), Context.PlayerStateManager.CurrentState.CurrentSubState);
         }
         else
         {
             Context.PlayerStateManager.CurrentState.SwitchState(Context.PlayerStateManager.CurrentState.Factory.Grappling());
         }
+
+        Context.Hook.transform.parent = null;
         
     }
 
@@ -30,8 +36,17 @@ public class GrapplingGunFiringState : GrapplingGunBaseState
 
     public override void Tick()
     {
-        
+        m_AttachDistance = Vector3.Distance(Context.Hook.transform.position, Context.GrapplingTargetPosition);
+        ShootHook();
         CheckSwitchStates();
+    }
+
+    private void ShootHook()
+    {
+        if (m_AttachDistance < m_GrapplingGunSettings.HookAttachThreshold)
+            Context.Hook.transform.position = Vector3.Lerp(Context.Hook.transform.position, Context.GrapplingTargetPosition, m_GrapplingGunSettings.HookSpeed * Time.deltaTime);
+        else
+            Context.Hook.transform.position = Context.GrapplingTargetPosition;
     }
 
     protected override void CheckSwitchStates()
@@ -42,11 +57,29 @@ public class GrapplingGunFiringState : GrapplingGunBaseState
             // Set grappling gun to scout
             Context.SwitchState(new GrapplingGunScoutState(Context));
 
-            // Set player to airborne root state
-            if (Context.PlayerStateManager.CurrentState.CurrentSubState is PlayerWalkingState)
-                Context.PlayerStateManager.CurrentState.SwitchState(Context.PlayerStateManager.CurrentState.Factory.Airborne(), Context.PlayerStateManager.CurrentState.CurrentSubState);
+            // Set player to grounded state
+            if (Context.PlayerStateManager.CharacterController.isGrounded)
+            {
+                if (Context.PlayerStateManager.CurrentState.CurrentSubState is PlayerWalkingState)
+                    Context.PlayerStateManager.CurrentState.SwitchState(Context.PlayerStateManager.CurrentState.Factory.Grounded(), Context.PlayerStateManager.CurrentState.CurrentSubState);
+                else
+                    Context.PlayerStateManager.CurrentState.SwitchState(Context.PlayerStateManager.CurrentState.Factory.Grounded());
+            }
             else
-                Context.PlayerStateManager.CurrentState.SwitchState(Context.PlayerStateManager.CurrentState.Factory.Airborne());
+            { // Set player to airborne root state
+                if (Context.PlayerStateManager.CurrentState.CurrentSubState is PlayerWalkingState)
+                    Context.PlayerStateManager.CurrentState.SwitchState(Context.PlayerStateManager.CurrentState.Factory.Airborne(), Context.PlayerStateManager.CurrentState.CurrentSubState);
+                else
+                    Context.PlayerStateManager.CurrentState.SwitchState(Context.PlayerStateManager.CurrentState.Factory.Airborne());
+            }
+            return;
         }
+
+        // Switch to attached state if the hook got to the target position
+        if (Context.Hook.transform.position == Context.GrapplingTargetPosition)
+        {
+            // Set grappling gun to attached state
+            Context.SwitchState(new GrapplingGunAttachedState(Context));
+        } 
     }
 }

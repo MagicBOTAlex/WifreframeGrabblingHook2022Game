@@ -47,6 +47,11 @@ public class GrapplingGunLockedState : GrapplingGunBaseState
     {
 
     }
+    private void ResetCannon()
+    {
+        // Lerp hook back to cannon
+        Context.Hook.transform.position = Vector3.Lerp(Context.Hook.transform.position, Context.HookDefaultPosition.position, m_GrapplingGunSettings.HookSpeed * Time.deltaTime);
+    }
 
     public override void Tick()
     {
@@ -57,6 +62,7 @@ public class GrapplingGunLockedState : GrapplingGunBaseState
         m_TargetHitPoint = m_GrapplingGunBehavior.GetClosestGrabbablePoint();
         //Debug.Log($"Locked to: {m_TargetHitPoint}");
 
+        ResetCannon();
         LookAtTarget();
 
         CheckSwitchStates();

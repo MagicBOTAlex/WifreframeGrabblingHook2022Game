@@ -10,5 +10,7 @@ public class GrapplingGunSettings : MonoBehaviour
     // if the model is modelled correctly.
     //[SerializeField] public Vector3 CannonForwardVecOffset = new Vector3(0f, 90f, 0f);
     [SerializeField] public float CannonRotationSpeed = 50f;
+    [SerializeField] public float HookSpeed = 50f;
+    [SerializeField] public float HookAttachThreshold = 0.5f;
 
 }
