@@ -78,6 +78,7 @@ public class GrapplingGunBehavior : MonoBehaviour, IGrapplingGunBehavior
             Context.LineRenderer.enabled = true;
 
         // Set the start of the line to the grappling gun's position
+        //Debug.Log($"Line length: {(Context.GrapplingGun.transform.position - Context.Hook.transform.position).magnitude}");
         Context.LineRenderer.SetPosition(0, Context.GrapplingGun.transform.position);
         Context.LineRenderer.SetPosition(1, Context.Hook.transform.position);
     }

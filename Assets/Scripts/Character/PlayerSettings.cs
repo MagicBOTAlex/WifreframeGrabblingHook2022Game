@@ -10,4 +10,8 @@ public class PlayerSettings : MonoBehaviour
     [SerializeField] public float MovementAccelerationResetThreshold = 0.2f;
     [SerializeField] public bool EnableWalkWhileHooking = false;
     [SerializeField] public bool EnableWalkWhileJumping = true;
+
+    [Header("Dragging Settings")]
+    [SerializeField] public float DragBoost = 15f;
+    [SerializeField] public float TensionScalar = 50f;
 }

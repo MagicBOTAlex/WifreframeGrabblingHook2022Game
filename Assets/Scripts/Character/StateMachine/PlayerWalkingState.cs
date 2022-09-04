@@ -14,9 +14,9 @@ public class PlayerWalkingState : PlayerBaseState, IMovementModifier
     private Vector3 m_CurrentMovementVelocity = Vector3.zero;
     // The velocity difference used by the sigmoid function in smoothdamp
     private Vector3 m_CurrentMovementVelocityDelta = Vector3.zero;
-
     private float m_CheckSwitchDelay = 0.1f;
     private float m_CurrentCheckSwitchDelay = 0f;
+
 
     /* Pass context and state factory to super class constructor,
      * to access the context and factory in this state method. */
@@ -74,6 +74,10 @@ public class PlayerWalkingState : PlayerBaseState, IMovementModifier
 
         m_CurrentMovementVelocity = Vector3.SmoothDamp(m_CurrentMovementVelocity, targetVelocity, ref m_CurrentMovementVelocityDelta, m_PlayerSettings.MovementAcceleration);
         Vector3 translatedVelocity = m_Player.forward * m_CurrentMovementVelocity.z + m_Player.right * m_CurrentMovementVelocity.x;
+
+        // TODO rotate when on the other side of tether point
+        //if (CurrentSuperState is PlayerGrapplingState)
+        //    translatedVelocity += m_Player.forward * m_Context.PlayerSettings.DragBoost;
 
         if (translatedVelocity.magnitude < m_PlayerSettings.MovementAccelerationResetThreshold)
             translatedVelocity = Vector3.zero;

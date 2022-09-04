@@ -15,9 +15,10 @@ public class GrapplingGunContext : MonoBehaviour
     /* Grappling Gun Settings. */
     private GrapplingGunSettings m_GrapplingGunSettings = null;
 
-    private Vector3 m_GrapplingTargetPosition = Vector3.zero;
+    
 
     /* Context member variables. */
+    private Vector3 m_GrapplingTargetPosition = Vector3.zero;
     private GameObject m_GrapplingGun = null;
     private GameObject m_GrapplingGunHolder = null;
     private GameObject m_Cannon = null;

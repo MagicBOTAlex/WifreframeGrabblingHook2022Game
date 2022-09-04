@@ -1,3 +1,4 @@
+using UnityEngine;
 public class PlayerStateFactory
 {
     private PlayerStateManager m_Context;
@@ -23,9 +24,9 @@ public class PlayerStateFactory
     {
         return new PlayerGroundedState(m_Context, this);
     }
-    public PlayerBaseState Grappling()
+    public PlayerBaseState Grappling(Vector3 targetPosition)
     {
-        return new PlayerGrapplingState(m_Context, this);
+        return new PlayerGrapplingState(m_Context, this, targetPosition);
     }
     public PlayerBaseState Airborne()
     {

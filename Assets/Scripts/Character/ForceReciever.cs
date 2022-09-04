@@ -26,7 +26,7 @@ public class ForceReciever : MonoBehaviour, IMovementModifier
             return;
 
         // Reset the force when its below the reset threshold
-        if (MovementValue.magnitude < m_ForceMagnitudeResetThreshold) {
+        if (MovementValue.magnitude <= m_ForceMagnitudeResetThreshold) {
             MovementValue = Vector3.zero;
         }
 

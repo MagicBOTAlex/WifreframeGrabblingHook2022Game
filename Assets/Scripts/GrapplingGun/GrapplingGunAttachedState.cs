@@ -8,6 +8,9 @@ public class GrapplingGunAttachedState : GrapplingGunBaseState
         // Set settings from context
         m_GrapplingGunSettings = Context.GrapplingGunSettings;
 
+        // Set the radius of the virtual swing circle for the swing mechanic
+        Context.PlayerStateManager.TetherRadius = (Context.GrapplingTargetPosition - Context.Player.transform.position).magnitude;
+
         // Set up the grappling gun behaviour
         m_GrapplingGunBehavior = Context.GrapplingGun.GetComponent<GrapplingGunBehavior>();
         m_GrapplingGunBehavior.SetContext(Context);
@@ -22,8 +25,10 @@ public class GrapplingGunAttachedState : GrapplingGunBaseState
         PlayerGrapplingState gState = (Context.PlayerStateManager.CurrentState as PlayerGrapplingState);
         if (gState != null)
         {
+            Debug.Log("starting drag");
             gState.ShouldDrag = true;
         }
+        
     }
 
     public override void Exit()
@@ -32,6 +37,7 @@ public class GrapplingGunAttachedState : GrapplingGunBaseState
         PlayerGrapplingState gState = (Context.PlayerStateManager.CurrentState as PlayerGrapplingState);
         if (gState != null)
         {
+            Debug.Log("Stopping drag");
             gState.ShouldDrag = false;
         }
     }
@@ -68,10 +74,5 @@ public class GrapplingGunAttachedState : GrapplingGunBaseState
             }
             return;
         }
-    }
-
-    public void CancelGrapple()
-    {
-
     }
 }

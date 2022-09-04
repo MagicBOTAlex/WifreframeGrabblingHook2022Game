@@ -24,11 +24,11 @@ public class GrapplingGunFiringState : GrapplingGunBaseState
         {
             // Pass the instance of the current walking sub state to the new root state
             // to save mem i/o and lag
-            Context.PlayerStateManager.CurrentState.SwitchState(Context.PlayerStateManager.CurrentState.Factory.Grappling(), Context.PlayerStateManager.CurrentState.CurrentSubState);
+            Context.PlayerStateManager.CurrentState.SwitchState(Context.PlayerStateManager.CurrentState.Factory.Grappling(Context.GrapplingTargetPosition), Context.PlayerStateManager.CurrentState.CurrentSubState);
         }
         else
         {
-            Context.PlayerStateManager.CurrentState.SwitchState(Context.PlayerStateManager.CurrentState.Factory.Grappling());
+            Context.PlayerStateManager.CurrentState.SwitchState(Context.PlayerStateManager.CurrentState.Factory.Grappling(Context.GrapplingTargetPosition));
         }
 
         Context.Hook.transform.parent = null;
